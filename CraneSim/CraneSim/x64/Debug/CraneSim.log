@@ -1,0 +1,8 @@
+﻿  stage.cpp
+c:\users\avert second\documents\studia\iv rok - semestr 8\laboratorium problemowe\cranesim\cranesim\stage.cpp(53): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\avert second\documents\studia\iv rok - semestr 8\laboratorium problemowe\cranesim\cranesim\stage.cpp(54): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\avert second\documents\studia\iv rok - semestr 8\laboratorium problemowe\cranesim\cranesim\stage.cpp(55): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  main.cpp
+  Generating Code...
+  CraneSim.vcxproj -> C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Debug\CraneSim.exe
+  CraneSim.vcxproj -> C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Debug\CraneSim.pdb (Partial PDB)

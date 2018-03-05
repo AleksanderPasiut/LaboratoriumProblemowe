@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="customScene.h">
+      <Filter>ThreeDimWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="threeDimWindow.h">
+      <Filter>ThreeDimWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="winTemplate.h">
+      <Filter>WinTemplate</Filter>
+    </ClInclude>
+    <ClInclude Include="docker.h">
+      <Filter>WinTemplate</Filter>
+    </ClInclude>
+    <ClInclude Include="shapes.h">
+      <Filter>ThreeDimWindow\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>ThreeDimWindow\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="matWorld.h">
+      <Filter>ThreeDimWindow\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="matView.h">
+      <Filter>ThreeDimWindow\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="matProjection.h">
+      <Filter>ThreeDimWindow\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="materials.h">
+      <Filter>ThreeDimWindow\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics3d.h">
+      <Filter>ThreeDimWindow\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include.h">
+      <Filter>WinTemplate</Filter>
+    </ClInclude>
+    <ClInclude Include="mainWindow.h" />
+    <ClInclude Include="stage.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="item.h">
+      <Filter>Stage\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="frame.h">
+      <Filter>Stage\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="fence.h">
+      <Filter>Stage\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="carriage.h">
+      <Filter>Stage\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="mass.h">
+      <Filter>Stage\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="controlsWindow.h">
+      <Filter>ControlsWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="slider.h">
+      <Filter>ControlsWindow</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="threeDimWindow.cpp">
+      <Filter>ThreeDimWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="shapes.cpp">
+      <Filter>ThreeDimWindow\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="scene.cpp">
+      <Filter>ThreeDimWindow\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="materials.cpp">
+      <Filter>ThreeDimWindow\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics3d.cpp">
+      <Filter>ThreeDimWindow\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="stage.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="WinTemplate">
+      <UniqueIdentifier>{82773ab0-aa54-4b31-887c-c07985a97ac9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThreeDimWindow">
+      <UniqueIdentifier>{6e2ddd0d-2f10-4de4-8253-d82ccd112b01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThreeDimWindow\Graphics">
+      <UniqueIdentifier>{ff44a7a9-57fd-4ced-8573-a7c95ce3928f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThreeDimWindow\Materials">
+      <UniqueIdentifier>{fabfe1df-368a-4b85-966d-0fe3928886f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThreeDimWindow\Scene">
+      <UniqueIdentifier>{73ea8bf4-6894-4dc2-b7df-cafccc07bedf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThreeDimWindow\Shapes">
+      <UniqueIdentifier>{780f4e2e-5055-43c1-8d84-6a7756aa4031}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage">
+      <UniqueIdentifier>{4ba8be34-7031-430b-8723-b775d6601f0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Item">
+      <UniqueIdentifier>{de3f0ca4-50d3-400e-af0b-45f34da6bdfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ControlsWindow">
+      <UniqueIdentifier>{5b77c13f-e891-4568-8d67-1cc3bb8c9f61}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
