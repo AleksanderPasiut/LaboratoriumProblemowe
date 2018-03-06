@@ -23,8 +23,8 @@ public:
 														600,
 														WS_EX_TOOLWINDOW),
 		stage(stage),
-		sliderX(L"ux", hwnd, {20, 10, 60, 520}, {20, 530, 60, 540}, -10.0, 10.0, 0.25, 0),
-		sliderY(L"uy", hwnd, {80, 10, 120, 520}, {80, 530, 120, 540}, -10.0, 10.0, 0.25, 0)
+		sliderX(L"ux", hwnd, {20, 10, 70, 520}, {20, 530, 70, 540}, -10.0, 10.0, 0.25, 0),
+		sliderY(L"uy", hwnd, {80, 10, 130, 520}, {80, 530, 130, 540}, -10.0, 10.0, 0.25, 0)
 		//slider1(hwnd, {140, 10, 180, 520}, {140, 530, 180, 540}, -0.75, 0.75, 0.03, 0),
 		//slider2(hwnd, {200, 10, 240, 520}, {200, 530, 240, 540}, -0.75, 0.75, 0.03, 0)
 	{
@@ -48,6 +48,16 @@ public:
 			{
 				//stage.Control(sliderX.RetPos(), sliderY.RetPos(), slider1.RetPos(), slider2.RetPos());
 				stage.Control(sliderX.RetPos(), sliderY.RetPos(), 0, 0);
+				break;
+			}
+			case Stage::SIMM_ERROR:
+			{
+				sliderX.SetPos(0);
+				sliderY.SetPos(0);
+				break;
+			}
+			case Stage::SIMM_STEP:
+			{
 				break;
 			}
 		}

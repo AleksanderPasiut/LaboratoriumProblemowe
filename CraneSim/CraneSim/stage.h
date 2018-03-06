@@ -1,5 +1,8 @@
 #pragma once
 
+#include "params.h"
+#include "model.h"
+
 #include "frame.h"
 #include "fence.h"
 #include "carriage.h"
@@ -8,72 +11,36 @@
 class Stage
 {
 private:
-	HWND controlsWindow;
-
-private:
 	Frame frame;
 	Fence fence;
 	Carriage carriage;
 	Mass mass;
 
 private:
-	// sterowanie
-	double ux;
-	double uy;
-
-	// zmienne stanu
-	double carX;
-	double carY;
-	double alphaX;
-	double alphaY;
-
-	// pochodne zmiennych stanu
-	double vcX;
-	double vcY;
-	double omegaX;
-	double omegaY;
-
-	// drugie pochodne zmiennych stanu
-	double acX;
-	double acY;
-	double epsilonX;
-	double epsilonY;
-
-	// masy i d³ugoœæ
-	double l;
-	double m;
-	double mF;
-	double mC;
-
-	// przyspieszenie ziemskie
-	double g;
-
-	// zmienne pomocnicze
-	double sinAlphaX;
-	double sinAlphaY;
-	double cosAlpha;
-	double sinAlpha;
-
-	// wspó³czynniki t³umienia
-	double bX;
-	double bY;
+	Params params;
+	Model model;
+	
+private:
+	void Euler(double dt);
+	void RungeKutta(double dt);
+	void CheckErrs();
+	void Action(double dt);
 
 public:
 	Stage();
-	void ResetPos();
-	void Action(double dt);
+	
+private:
+	HWND controlsWindow;
 
-	double bx(double v);
-	double by(double v);
-	void ComputeCosSinAlpha();
-	void ComputeLinearAccelerations();
-	void ComputeAngleAccelerations();
-	void IntegrateAccelerations(double dt);
-	void IntegrateVelocities(double dt);
-
+public:
 	void Render(CustomScene& scene, Shapes& shapes, Materials& materials) const;
 	void Control(double ux, double uy, double u1, double u2);
 
+public:
+	static const int SIMM_ERROR = 0x8001;
+	static const int SIMM_STEP = 0x8002;
+
+public:
 	void SetControlsWindow(HWND hwnd);
 	void StartAction();
 	void StopAction();

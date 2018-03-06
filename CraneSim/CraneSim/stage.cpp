@@ -1,152 +1,82 @@
 #include "stage.h"
 
-Stage::Stage() :
-	ux(0.1),
-	uy(0),
-	carX(0),
-	carY(0),
-	alphaX(0),
-	alphaY(0),
-	vcX(0),
-	vcY(0),
-	omegaX(0),
-	omegaY(0),
-	acX(0),
-	acY(0),
-	epsilonX(0),
-	epsilonY(0),
-	l(0.7),
-	m(0.5),
-	mF(3),
-	mC(1),
-	g(9.81),
-	bX(10),
-	bY(20)
+void Stage::Euler(double dt)
 {
+	model.Step(params);
 
+	model.vcX += model.acX * dt;
+	model.vcY += model.acY * dt;
+	model.omegaX += model.epsilonX * dt;
+	model.omegaY += model.epsilonY * dt;
+
+	model.carX += model.vcX * dt;
+	model.carY += model.vcY * dt;
+	model.alphaX += model.omegaX * dt;
+	model.alphaY += model.omegaY * dt;
 }
-void Stage::ResetPos()
+void Stage::RungeKutta(double dt)
 {
-	carX = 0;
-	carY = 0;
-	alphaX = 0;
-	alphaY = 0;
-	vcX = 0;
-	vcY = 0;
-	omegaX = 0;
-	omegaY = 0;
-	acX = 0;
-	acY = 0;
-	epsilonX = 0;
-	epsilonY = 0;
+	Model k1 = model;
+	k1.Step(params);
+
+	Model k2 = model;
+	k2.Add(k1, 0.5);
+	k2.Step(params);
+
+	Model k3 = model;
+	k3.Add(k2, 0.5);
+	k3.Step(params);
+
+	Model k4 = model;
+	k4.Add(k3, 1.0);
+	k4.Step(params);
+
+	model.carX += (k1.vcX/6 + k2.vcX/3 + k3.vcX/3 + k4.vcX/6) * dt;
+	model.carY += (k1.vcY/6 + k2.vcY/3 + k3.vcY/3 + k4.vcY/6) * dt;
+	model.alphaX += (k1.omegaX/6 + k2.omegaX/3 + k3.omegaX/3 + k4.omegaX/6) * dt;
+	model.alphaY += (k1.omegaY/6 + k2.omegaY/3 + k3.omegaY/3 + k4.omegaY/6) * dt;
+
+	model.vcX += (k1.acX/6 + k2.acX/3 + k3.acX/3 + k4.acX/6) * dt;
+	model.vcY += (k1.acY/6 + k2.acY/3 + k3.acY/3 + k4.acY/6) * dt;
+	model.omegaX += (k1.epsilonX/6 + k2.epsilonX/3 + k3.epsilonX/3 + k4.epsilonX/6) * dt;
+	model.omegaY += (k1.epsilonY/6 + k2.epsilonY/3 + k3.epsilonY/3 + k4.epsilonY/6) * dt;
+}
+void Stage::CheckErrs()
+{
+	if (model.alphaX > 1.57)
+		throw std::logic_error("Odchylenie alphaX przekroczy³o wartoœæ pi/2.");
+	if (model.alphaX < -1.57)
+		throw std::logic_error("Odchylenie alphaX przekroczy³o wartoœæ -pi/2.");
+	if (model.alphaY > 1.57)
+		throw std::logic_error("Odchylenie alphaY przekroczy³o wartoœæ pi/2.");
+	if (model.alphaY < -1.57)
+		throw std::logic_error("Odchylenie alphaY przekroczy³o wartoœæ -pi/2.");
 }
 void Stage::Action(double dt)
 {
-	ComputeCosSinAlpha();
-
-	ComputeLinearAccelerations();
-	ComputeAngleAccelerations();
-	
-	IntegrateAccelerations(dt);
-	IntegrateVelocities(dt);
-
-	fence.SetPos(carY);
-	carriage.SetPos(carX, carY);
-	mass.SetPos(carX, carY, alphaX, alphaY, l);
-}
-
-double Stage::bx(double v)
-{
-	return - bX * v;
-}
-double Stage::by(double v)
-{
-	return - bY * v;
-}
-void Stage::ComputeCosSinAlpha()
-{
-	sinAlphaX = sin(alphaX);
-	sinAlphaY = sin(alphaY);
-	double ss = sinAlphaX * sinAlphaX + sinAlphaY * sinAlphaY;
-	cosAlpha = sqrt(1 - ss);
-	sinAlpha = sqrt(ss);
-}
-void Stage::ComputeLinearAccelerations()
-{
-	// obliczenie wspó³czynników uk³adu równañ (17)
-	double B1 = m*sinAlphaX;
-	double B2 = m*sinAlphaY;
-
-	double A1 = ux + g*B1 * cosAlpha + bx(vcX);
-	double A2 = uy + g*B2 * cosAlpha + by(vcY);
-	
-	double C1 = mC;
-	double C2 = mC + mF;
-
-	// obliczenie wspó³czynników równañ (22) i symetrycznego do (22)
-	double A2B1mA1B2 = A2*B1 - A1*B2;
-	double A1B2mA2B1 = -A2B1mA1B2;
-
-	double AA = C1*C1*C2*C2 - C2*C2*B1*B1 - C1*C1*B2*B2;
-	double BB1 = 2*(C1*B2*A2B1mA1B2 - A1*C1*C2*C2);
-	double BB2 = 2*(C2*B1*A1B2mA2B1 - A2*C2*C1*C1);
-
-	double A2B1mA1B2sqr = A2B1mA1B2 * A2B1mA1B2;
-	double CC1 = A1*A1*C2*C2 + A2B1mA1B2sqr;
-	double CC2 = A2*A2*C1*C1 + A2B1mA1B2sqr;
-
-	if (AA != 0)
+	switch (params.solverType)
 	{
-		double Delta1 = BB1*BB1 - 4*AA*CC1;
-		double Delta2 = BB2*BB2 - 4*AA*CC2;
-
-		acX = (-BB1 - Delta1) / (2*AA);
-		acY = (-BB2 - Delta2) / (2*AA);
+		case Params::EULER: Euler(dt); break;
+		case Params::RUNGE_KUTTA_4: RungeKutta(dt); break;
 	}
-	else
-	{
-		if (BB1 == 0 || BB2 == 0)
-			throw std::logic_error("Zero division error!");
 
-		acX = -CC1 / BB1;
-		acY = -CC2 / BB2;
-	}
-}
-void Stage::ComputeAngleAccelerations()
-{
-	double xySqr = sqrt(acX * acX + acY * acY);
-	double gcsSqr = g * cosAlpha + sinAlpha * xySqr;
-	epsilonX = (l * omegaX * omegaX * sinAlphaX - acX - sinAlphaX * gcsSqr) / (l * cos(alphaX));
-	epsilonY = (l * omegaY * omegaY * sinAlphaY - acY - sinAlphaY * gcsSqr) / (l * cos(alphaY));
-}
-void Stage::IntegrateAccelerations(double dt)
-{
-	vcX += acX * dt;
-	vcY += acY * dt;
-	omegaX += epsilonX * dt;
-	omegaY += epsilonY * dt;
-}
-void Stage::IntegrateVelocities(double dt)
-{
-	carX += vcX * dt;
-	carY += vcY * dt;
-	alphaX += omegaX * dt;
-	alphaY += omegaY * dt;
+	CheckErrs();
 
-	if (alphaX > 1.57)
-		throw std::logic_error("Odchylenie alphaX przekroczy³o wartoœæ pi/2.");
-	if (alphaX < -1.57)
-		throw std::logic_error("Odchylenie alphaX przekroczy³o wartoœæ -pi/2.");
-	if (alphaY > 1.57)
-		throw std::logic_error("Odchylenie alphaY przekroczy³o wartoœæ pi/2.");
-	if (alphaY < -1.57)
-		throw std::logic_error("Odchylenie alphaY przekroczy³o wartoœæ -pi/2.");
-
+	fence.SetPos(static_cast<float>(model.carY));
+	carriage.SetPos(static_cast<float>(model.carX), static_cast<float>(model.carY));
+	mass.SetPos(static_cast<float>(model.carX), static_cast<float>(model.carY), static_cast<float>(model.alphaX), static_cast<float>(model.alphaY), static_cast<float>(params.l));
 }
+
+Stage::Stage()
+{
+	params.Reset();
+	model.Reset();
+}
+
 void Stage::Control(double ux, double uy, double u1, double u2)
 {
-	this->ux = ux;
-	this->uy = uy;
+	model.ux = ux;
+	model.uy = uy;
 }
 void Stage::Render(CustomScene& scene, Shapes& shapes, Materials& materials) const
 {
@@ -174,13 +104,16 @@ void CALLBACK Stage::ActionTimer(HWND hwnd, UINT uMsg, UINT_PTR idParam, DWORD d
 
 	try
 	{
-		stage->Action(0.01f);	
+		//for (int i = 0; i < 100; ++i)
+		stage->Action(0.01);	
+		PostMessage(hwnd, SIMM_STEP, 0, 0);
 	}
 	catch (std::exception& e)
 	{
 		stage->StopAction();
 		MessageBoxA(0, e.what(), "Error!", MB_OK);
-		stage->ResetPos();
+		stage->model.Reset();
+		SendMessage(hwnd, SIMM_ERROR, 0, 0);
 		stage->StartAction();
 	}
 }

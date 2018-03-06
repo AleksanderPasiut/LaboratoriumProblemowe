@@ -95,7 +95,7 @@ public:
 	void SetEditBoxValue(double value)
 	{
 		std::wstringstream ss;
-		ss << std::fixed << std::setprecision(2) << value;
+		ss << std::fixed << std::setprecision(3) << value;
 		SetWindowText(editbox, (name + L": " +ss.str()).c_str());
 	}
 };
