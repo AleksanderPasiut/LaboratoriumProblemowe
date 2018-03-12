@@ -46,6 +46,8 @@ public:
 		if (angleY < 0)
 			azimuth += 3.141529f;
 
+		this->lineLength = lineLength;
+
 		/*matLine.Set(D3DXVECTOR3(sinAlphaX * lineLength/2 + posX,
 								sinAlphaY * lineLength/2 + posY,
 								0.985f - cosAlpha * lineLength/2), D3DXVECTOR3(0.01f, 0.01f, lineLength), azimuth, acos(cosAlpha), false);*/

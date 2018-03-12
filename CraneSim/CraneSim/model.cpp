@@ -1,4 +1,4 @@
-#include "model.h"
+ï»¿#include "model.h"
 
 void Model::Add(const Model& arg, double factor)
 {
@@ -29,37 +29,70 @@ void Model::ComputeCosSinAlpha(const Params& params)
 	cosAlpha = sqrt(1 - ss);
 	sinAlpha = sqrt(ss);
 }
+bool Model::ChkEq(double A1, double A2, double B1, double B2, double C1, double C2, double epsilon)
+{
+	return  (abs(A1 + B1 * sqrt(acX * acX + acY * acY) - C1* acX) < epsilon) &&
+			(abs(A2 + B2 * sqrt(acX * acX + acY * acY) - C2* acY) < epsilon);
+}
 void Model::ComputeLinearAccelerations(const Params& params)
 {
-	// obliczenie wspó³czynników uk³adu równañ (17)
+	// obliczenie wspÃ³Å‚czynnikÃ³w ukÅ‚adu rÃ³wnaÅ„ (18)
 	double B1 = params.m*sinAlphaX;
 	double B2 = params.m*sinAlphaY;
 
 	double A1 = ux + params.g*B1 * cosAlpha + bx(params);
 	double A2 = uy + params.g*B2 * cosAlpha + by(params);
 	
-	double C1 = params.mC;
-	double C2 = params.mC + params.mF;
+	double C1 = params.mC + params.mF;
+	double C2 = params.mC;
 
-	// obliczenie wspó³czynników równañ (22) i symetrycznego do (22)
+	// obliczenie wspÃ³Å‚czynnikÃ³w rÃ³wnaÅ„ (23) i symetrycznego do (24)
 	double A2B1mA1B2 = A2*B1 - A1*B2;
 	double A1B2mA2B1 = -A2B1mA1B2;
 
 	double AA = C1*C1*C2*C2 - C2*C2*B1*B1 - C1*C1*B2*B2;
-	double BB1 = 2*(C1*B2*A2B1mA1B2 - A1*C1*C2*C2);
-	double BB2 = 2*(C2*B1*A1B2mA2B1 - A2*C2*C1*C1);
+	double BB1 = 2*(C1*B2*A1B2mA2B1 - A1*C1*C2*C2);
+	double BB2 = 2*(C2*B1*A2B1mA1B2 - A2*C2*C1*C1);
 
 	double A2B1mA1B2sqr = A2B1mA1B2 * A2B1mA1B2;
-	double CC1 = A1*A1*C2*C2 + A2B1mA1B2sqr;
-	double CC2 = A2*A2*C1*C1 + A2B1mA1B2sqr;
+	double CC1 = A1*A1*C2*C2 - A2B1mA1B2sqr;
+	double CC2 = A2*A2*C1*C1 - A2B1mA1B2sqr;
 
 	if (AA != 0)
 	{
-		double Delta1 = BB1*BB1 - 4*AA*CC1;
-		double Delta2 = BB2*BB2 - 4*AA*CC2;
+		
+		double Delta1 = sqrt(BB1*BB1 - 4*AA*CC1);
+		double Delta2 = sqrt(BB2*BB2 - 4*AA*CC2);
+
+		if (std::isnan(Delta1))
+			Delta1 = 0;
+
+		if (std::isnan(Delta2))
+			Delta2 = 0;
 
 		acX = (-BB1 - Delta1) / (2*AA);
 		acY = (-BB2 - Delta2) / (2*AA);
+
+		if (ChkEq(A1, A2, B1, B2, C1, C2, 0.001))
+			return;
+
+		acX = (-BB1 + Delta1) / (2*AA);
+		acY = (-BB2 - Delta2) / (2*AA);
+
+		if (ChkEq(A1, A2, B1, B2, C1, C2, 0.001))
+			return;
+
+		acX = (-BB1 - Delta1) / (2*AA);
+		acY = (-BB2 + Delta2) / (2*AA);
+
+		if (ChkEq(A1, A2, B1, B2, C1, C2, 0.001))
+			return;
+
+		acX = (-BB1 + Delta1) / (2*AA);
+		acY = (-BB2 + Delta2) / (2*AA);
+
+		if (!ChkEq(A1, A2, B1, B2, C1, C2, 0.001))
+			throw std::logic_error("No solution fits the soe solutions. :(");
 	}
 	else
 	{

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bistable.h" />
     <ClInclude Include="carriage.h" />
     <ClInclude Include="controlsWindow.h" />
     <ClInclude Include="customScene.h" />
@@ -35,6 +36,7 @@
     <ClInclude Include="matView.h" />
     <ClInclude Include="matWorld.h" />
     <ClInclude Include="model.h" />
+    <ClInclude Include="numeric.h" />
     <ClInclude Include="params.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="shapes.h" />

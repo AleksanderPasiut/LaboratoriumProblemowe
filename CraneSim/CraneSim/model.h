@@ -40,6 +40,7 @@ private:
 	double bx(const Params& params);
 	double by(const Params& params);
 	void ComputeCosSinAlpha(const Params& params);
+	bool ChkEq(double A1, double A2, double B1, double B2, double C1, double C2, double epsilon);
 	void ComputeLinearAccelerations(const Params& params);
 	void ComputeAngleAccelerations(const Params& params);
 

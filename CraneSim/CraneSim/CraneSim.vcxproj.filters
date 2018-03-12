@@ -68,6 +68,12 @@
     <ClInclude Include="model.h">
       <Filter>Stage\Model</Filter>
     </ClInclude>
+    <ClInclude Include="numeric.h">
+      <Filter>ControlsWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="bistable.h">
+      <Filter>ControlsWindow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

@@ -31,6 +31,7 @@ public:
 	
 private:
 	HWND controlsWindow;
+	bool action;
 
 public:
 	void Render(CustomScene& scene, Shapes& shapes, Materials& materials) const;
@@ -44,5 +45,9 @@ public:
 	void SetControlsWindow(HWND hwnd);
 	void StartAction();
 	void StopAction();
+	bool IsAction() const noexcept { return action; }
 	static void CALLBACK ActionTimer(HWND hwnd, UINT uMsg, UINT_PTR idParam, DWORD dwTime);
+
+	Params& RetParams() { return params; }
+	Model& RetModel() { return model; }
 };

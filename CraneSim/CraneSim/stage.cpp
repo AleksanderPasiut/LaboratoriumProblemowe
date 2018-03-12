@@ -62,12 +62,12 @@ void Stage::Action(double dt)
 
 	CheckErrs();
 
-	fence.SetPos(static_cast<float>(model.carY));
-	carriage.SetPos(static_cast<float>(model.carX), static_cast<float>(model.carY));
-	mass.SetPos(static_cast<float>(model.carX), static_cast<float>(model.carY), static_cast<float>(model.alphaX), static_cast<float>(model.alphaY), static_cast<float>(params.l));
+	fence.SetPos(static_cast<float>(model.carX));
+	carriage.SetPos(static_cast<float>(model.carY), static_cast<float>(model.carX));
+	mass.SetPos(static_cast<float>(model.carY), static_cast<float>(model.carX), static_cast<float>(model.alphaY), static_cast<float>(model.alphaX), static_cast<float>(params.l));
 }
 
-Stage::Stage()
+Stage::Stage() : action(true)
 {
 	params.Reset();
 	model.Reset();
@@ -92,11 +92,14 @@ void Stage::SetControlsWindow(HWND hwnd)
 }
 void Stage::StartAction()
 {
+	mass.SetPos(0, 0, 0, 0, static_cast<float>(params.l));
 	SetTimer(controlsWindow, reinterpret_cast<UINT_PTR>(this), 10, &Stage::ActionTimer);
+	action = true;
 }
 void Stage::StopAction()
 {
 	KillTimer(controlsWindow, reinterpret_cast<UINT_PTR>(this));
+	action = false;
 }
 void CALLBACK Stage::ActionTimer(HWND hwnd, UINT uMsg, UINT_PTR idParam, DWORD dwTime)
 {
@@ -104,8 +107,8 @@ void CALLBACK Stage::ActionTimer(HWND hwnd, UINT uMsg, UINT_PTR idParam, DWORD d
 
 	try
 	{
-		//for (int i = 0; i < 100; ++i)
-		stage->Action(0.01);	
+		for (int i = 0; i < 100; ++i)
+			stage->Action(0.0001);	
 		PostMessage(hwnd, SIMM_STEP, 0, 0);
 	}
 	catch (std::exception& e)

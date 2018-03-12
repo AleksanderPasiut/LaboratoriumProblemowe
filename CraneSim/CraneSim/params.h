@@ -25,7 +25,7 @@ struct Params
 
 	void Reset()
 	{
-		m = 0.5;
+		m = 1.5;
 		mF = 3;
 		mC = 1;
 		l = 0.7;

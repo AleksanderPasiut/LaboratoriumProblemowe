@@ -17,7 +17,7 @@ private:
 	double value;
 
 public:
-	Slider(const std::wstring& name, HWND parent, const RECT& rect, const RECT& rectEdit, double rngMin, double rngMax, double rngTick, double value) :
+	Slider(__int64 id, const std::wstring& name, HWND parent, const RECT& rect, const RECT& rectEdit, double rngMin, double rngMax, double rngTick, double value) :
 		name(name),
 		parent(parent),
 		rngMin(rngMin),
@@ -34,7 +34,7 @@ public:
 								  rect.right - rect.left,
 								  rect.bottom - rect.top,
 								  parent,
-								  0,
+								  reinterpret_cast<HMENU>(id),
 								  GetModuleHandle(0),
 								  NULL);
 		SetWindowLongPtr(trackbar, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
@@ -61,12 +61,13 @@ public:
 
 		SendMessage(editbox, WM_SETFONT, reinterpret_cast<WPARAM>(GetStockObject(DEFAULT_GUI_FONT)), 0);
 
-		
 		SetPos(value);
 	}
 	static LRESULT CALLBACK SliderWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		Slider* slider = reinterpret_cast<Slider*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
+
+		LRESULT ret = CallWindowProc(slider->trackbarWindowProc, hwnd, uMsg, wParam, lParam);
 
 		switch (uMsg)
 		{
@@ -77,9 +78,14 @@ public:
 
 				break;
 			}
+			case WM_MOUSEWHEEL:
+			{
+				slider->SetEditBoxValue(slider->RetPos());
+				break;
+			}
 		}
 
-		return CallWindowProc(slider->trackbarWindowProc, hwnd, uMsg, wParam, lParam);
+		return ret;
 	}
 	void SetPos(double pos)
 	{
