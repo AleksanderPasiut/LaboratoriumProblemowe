@@ -74,6 +74,9 @@
     <ClInclude Include="bistable.h">
       <Filter>ControlsWindow</Filter>
     </ClInclude>
+    <ClInclude Include="solverSwitch.h">
+      <Filter>ControlsWindow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

@@ -18,10 +18,11 @@ struct Params
 	// rodzaj solvera
 	enum SolverType
 	{
-		EULER,
-		RUNGE_KUTTA_4
+		EULER = 0,
+		RUNGE_KUTTA_4 = 1
 	};
 	SolverType solverType;
+	double dt;
 
 	void Reset()
 	{
@@ -32,5 +33,7 @@ struct Params
 		g = 9.81;
 		bX = 10;
 		bY = 20;
+		dt = 0.0001;
+		solverType = RUNGE_KUTTA_4;
 	}
 };

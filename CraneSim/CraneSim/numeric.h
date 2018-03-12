@@ -49,7 +49,7 @@ public:
 	void SetValue(double value)
 	{
 		std::wstringstream ss;
-		ss << std::fixed << std::setprecision(4) << value;
+		ss << std::fixed << std::setprecision(5) << value;
 		if (valueStr != ss.str())
 		{
 			valueStr = ss.str();

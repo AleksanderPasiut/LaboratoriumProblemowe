@@ -41,6 +41,7 @@
     <ClInclude Include="scene.h" />
     <ClInclude Include="shapes.h" />
     <ClInclude Include="slider.h" />
+    <ClInclude Include="solverSwitch.h" />
     <ClInclude Include="stage.h" />
     <ClInclude Include="threeDimWindow.h" />
     <ClInclude Include="winTemplate.h" />

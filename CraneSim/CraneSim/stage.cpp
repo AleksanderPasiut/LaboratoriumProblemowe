@@ -107,8 +107,8 @@ void CALLBACK Stage::ActionTimer(HWND hwnd, UINT uMsg, UINT_PTR idParam, DWORD d
 
 	try
 	{
-		for (int i = 0; i < 100; ++i)
-			stage->Action(0.0001);	
+		for (int i = 0; i < static_cast<int>(round(1/(stage->params.dt * 100))); ++i)
+			stage->Action(stage->params.dt);	
 		PostMessage(hwnd, SIMM_STEP, 0, 0);
 	}
 	catch (std::exception& e)
