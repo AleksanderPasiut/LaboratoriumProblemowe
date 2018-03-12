@@ -77,6 +77,15 @@
     <ClInclude Include="solverSwitch.h">
       <Filter>ControlsWindow</Filter>
     </ClInclude>
+    <ClInclude Include="identifier.h">
+      <Filter>Identifier</Filter>
+    </ClInclude>
+    <ClInclude Include="progressBar.h">
+      <Filter>Identifier\ProgressBar</Filter>
+    </ClInclude>
+    <ClInclude Include="solver.h">
+      <Filter>Stage\Solver</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -100,6 +109,12 @@
     </ClCompile>
     <ClCompile Include="model.cpp">
       <Filter>Stage\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="identifier.cpp">
+      <Filter>Identifier</Filter>
+    </ClCompile>
+    <ClCompile Include="solver.cpp">
+      <Filter>Stage\Solver</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -132,6 +147,15 @@
     </Filter>
     <Filter Include="Stage\Model">
       <UniqueIdentifier>{80732700-3672-4280-9b9e-8ea2947505b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Identifier">
+      <UniqueIdentifier>{fd934ca1-84f6-44c7-9bda-7d425b28219f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Identifier\ProgressBar">
+      <UniqueIdentifier>{1a7ad7db-f497-495b-bbb4-d899ff76f854}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Solver">
+      <UniqueIdentifier>{a1b1960f-94b4-4420-8d0e-18375a88f53e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

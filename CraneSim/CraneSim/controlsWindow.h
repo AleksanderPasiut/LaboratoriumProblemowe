@@ -10,6 +10,7 @@ class ControlsWindow : public WinT<ControlsWindow>
 {
 private:
 	Stage& stage;
+	Identifier& identifier;
 
 	Slider sliderX;
 	Slider sliderY;
@@ -41,12 +42,13 @@ private:
 
 	Bistable bistable;
 	Bistable reset;
+	Bistable identify;
 
 	Numeric numericDt;
 	SolverSwitch solverSwitch;
 
 public:
-	ControlsWindow(Stage& stage) : WinT<ControlsWindow>(L"ControlsWindowClass",
+	ControlsWindow(Stage& stage, Identifier& identifier) : WinT<ControlsWindow>(L"ControlsWindowClass",
 														L"Controls",
 														WS_BORDER | WS_CAPTION,
 														50,
@@ -55,6 +57,7 @@ public:
 														700,
 														WS_EX_TOOLWINDOW),
 		stage(stage),
+		identifier(identifier),
 		sliderX(0x8001, L"ux", hwnd, {20, 10, 70, 520}, {20, 530, 70, 540}, -10.0, 10.0, 0.25, 0),
 		sliderY(0x8002, L"uy", hwnd, {80, 10, 130, 520}, {80, 530, 130, 540}, -10.0, 10.0, 0.25, 0),
 		numericX(0x8101, L"x", hwnd, {numLeft, 20, numHSize, numVSize}),
@@ -79,10 +82,10 @@ public:
 		bistable(0x8201, L"Stop simulation", hwnd, {numLeft - 30, 500, numHSize + 30, numVSize}),
 		reset(0x8202, L"Reset simulation", hwnd, {numLeft - 30, 525, numHSize + 30, numVSize}),
 		numericDt(0x8301, L"dt", hwnd, {numLeft, 560, numHSize, numVSize}),
-		solverSwitch(0x8302, 0x8303, hwnd, {numLeft, 590, numHSize, numVSize})
+		solverSwitch(0x8302, 0x8303, hwnd, {numLeft, 590, numHSize, numVSize}),
+		identify(0x8304, L"IDENTIFY", hwnd, {20, 580, 110, 20})
 	{
 		ChangeBackground(GetSysColorBrush(COLOR_BTNFACE));
-
 		FreezeControls(true, false);
 	}
 
@@ -164,15 +167,12 @@ public:
 						{
 							stage.StopAction();
 							bistable.SetName(L"Start simulation");
-
 							FreezeControls(false, false);
 						}
 						else
 						{
 							bistable.SetName(L"Stop simulation");
-
 							FreezeControls(true, true);
-
 							stage.StartAction();
 						}
 					}
@@ -191,6 +191,9 @@ public:
 
 					if (solverSwitch.RetIdRK4() == LOWORD(wParam) && HIWORD(wParam) == BN_CLICKED)
 						solverSwitch.SetValue(1);
+
+					if (identify.RetId() == LOWORD(wParam) && HIWORD(wParam) == BN_CLICKED)
+						Identify();
 				}
 				break;
 			}
@@ -208,5 +211,12 @@ public:
 		}
 
 		return DefWindowProc(hwnd, uMsg, wParam, lParam);
+	}
+
+	void Identify()
+	{
+		stage.StopAction();
+		identifier.Launch();
+		stage.StartAction();
 	}
 };

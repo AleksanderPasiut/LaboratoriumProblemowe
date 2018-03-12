@@ -1,6 +1,7 @@
 #include "winTemplate.h"
 
 #include "stage.h"
+#include "identifier.h"
 #include "mainWindow.h"
 #include "controlsWindow.h"
 #include "threeDimWindow.h"
@@ -8,7 +9,8 @@
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
 	Stage stage;
-	ControlsWindow controlsWindow(stage);
+	Identifier identifier(stage.RetModel(), stage.RetParams());
+	ControlsWindow controlsWindow(stage, identifier);
 	MainWindow mainWindow(controlsWindow.RetHwnd());
 
 	Graphics3D graphics3D;

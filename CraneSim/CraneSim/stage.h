@@ -2,6 +2,7 @@
 
 #include "params.h"
 #include "model.h"
+#include "solver.h"
 
 #include "frame.h"
 #include "fence.h"
@@ -19,12 +20,10 @@ private:
 private:
 	Params params;
 	Model model;
-	
+	Solver solver;
+
 private:
-	void Euler(double dt);
-	void RungeKutta(double dt);
-	void CheckErrs();
-	void Action(double dt);
+	void Action();
 
 public:
 	Stage();
