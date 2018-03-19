@@ -27,9 +27,9 @@
 \includegraphics[width=9cm]{pic1}
 \end{center}
 
-Model opisać można za pomocą czterech równań. Pierwsze nich wynika z przedstawienia zależności między przyspieszeniem $\vec{a_M}$ cięgnika / pomostu na suwnicy symbolizowanego przez masę $\vec{M}$ (powód użycia wektora został przedstawiony dalej), a odpowiednimi siłami, które na niego działają:
+Model opisać można za pomocą czterech równań. Pierwsze nich wynika z przedstawienia zależności między przyspieszeniem $\vec{a}_M$ cięgnika / pomostu na suwnicy symbolizowanego przez masę $\vec{M}$ (powód użycia wektora został przedstawiony dalej), a odpowiednimi siłami, które na niego działają:
 \begin{equation}
-\vec{U} + \vec{V} + \vec{N} + \vec{B} = \vec{M} \bullet \vec{a_M}
+\vec{U} + \vec{V} + \vec{N} + \vec{B} = \vec{M} \bullet \vec{a}_M
 \end{equation}
 
 gdzie:
@@ -88,15 +88,15 @@ Po podstawieniu równania (3) oraz wszystkich pozostałych wartości do równań
 \begin{bmatrix} u_x \\ u_y \\ 0 \end{bmatrix} + 
 \begin{bmatrix} 0 \\ 0 \\ v_z \end{bmatrix} +
 \begin{bmatrix} sin(\alpha_x) \\ sin(\alpha_y) \\ -cos(\alpha) \end{bmatrix}
-\Bigg( |m\vec{g}|cos(\alpha) + m \Bigg| \begin{bmatrix} \ddot{x_M} \\ \ddot{y_M} \\ 0 \end{bmatrix}\Bigg| sin(\alpha) \Bigg) + 
-\begin{bmatrix} b_x(\dot{x_M}) \\ b_y(\dot{y_M}) \\ 0 \end{bmatrix} = 
-\begin{bmatrix} (m_C + m_F) \ddot{x_M} \\ m_C \ddot{y_M} \\ 0 \end{bmatrix}
+\Bigg( |m\vec{g}|cos(\alpha) + m \Bigg| \begin{bmatrix} \ddot{x}_M \\ \ddot{y}_M \\ 0 \end{bmatrix}\Bigg| sin(\alpha) \Bigg) + 
+\begin{bmatrix} b_x(\dot{x}_M) \\ b_y(\dot{y}_M) \\ 0 \end{bmatrix} = 
+\begin{bmatrix} (m_C + m_F) \ddot{x}_M \\ m_C \ddot{y}_M \\ 0 \end{bmatrix}
 \end{equation}
 \begin{equation}
 \begin{bmatrix} 0 \\ 0 \\ -mg \end{bmatrix} -
-m \begin{bmatrix} \ddot{x_M} \\ \ddot{y_M} \\ 0 \end{bmatrix} - 
+m \begin{bmatrix} \ddot{x}_M \\ \ddot{y}_M \\ 0 \end{bmatrix} - 
 \begin{bmatrix} sin(\alpha_x) \\ sin(\alpha_y) \\ -cos(\alpha) \end{bmatrix}
-\Bigg( |m\vec{g}|cos(\alpha) + m \Bigg| \begin{bmatrix} \ddot{x_M} \\ \ddot{y_M} \\ 0 \end{bmatrix} \Bigg| sin(\alpha) \Bigg)
+\Bigg( |m\vec{g}|cos(\alpha) + m \Bigg| \begin{bmatrix} \ddot{x}_M \\ \ddot{y}_M \\ 0 \end{bmatrix} \Bigg| sin(\alpha) \Bigg)
  = m\vec{a}_m
 \end{equation}
 
@@ -105,14 +105,14 @@ Z równań usunąć można równania dla składowej $z$, gdyż nie są one potrz
 \begin{equation}
 \begin{bmatrix} u_x \\ u_y \end{bmatrix} + 
 m \begin{bmatrix} sin(\alpha_x) \\ sin(\alpha_y) \end{bmatrix}
-\Bigg( g \cdot cos(\alpha) + \Bigg| \begin{bmatrix} \ddot{x_M} \\ \ddot{y_M} \end{bmatrix} \Bigg| sin(\alpha) \Bigg) + 
-\begin{bmatrix} b_x(\dot{x_M}) \\ b_y(\dot{y_M}) \end{bmatrix} = 
-\begin{bmatrix}(m_C + m_F) \ddot{x_M} \\ m_C \ddot{y_M} \end{bmatrix}
+\Bigg( g \cdot cos(\alpha) + \Bigg| \begin{bmatrix} \ddot{x}_M \\ \ddot{y}_M \end{bmatrix} \Bigg| sin(\alpha) \Bigg) + 
+\begin{bmatrix} b_x(\dot{x}_M) \\ b_y(\dot{y}_M) \end{bmatrix} = 
+\begin{bmatrix}(m_C + m_F) \ddot{x}_M \\ m_C \ddot{y}_M \end{bmatrix}
 \end{equation}
 \begin{equation}
- - \begin{bmatrix} \ddot{x_M} \\ \ddot{y_M} \end{bmatrix} - 
+ - \begin{bmatrix} \ddot{x}_M \\ \ddot{y}_M \end{bmatrix} - 
 \begin{bmatrix} sin(\alpha_x) \\ sin(\alpha_y) \end{bmatrix}
-\Bigg( g \cdot cos(\alpha) + \Bigg| \begin{bmatrix} \ddot{x_M} \\ \ddot{y_M} \end{bmatrix} \Bigg| sin(\alpha) \Bigg)
+\Bigg( g \cdot cos(\alpha) + \Bigg| \begin{bmatrix} \ddot{x}_M \\ \ddot{y}_M \end{bmatrix} \Bigg| sin(\alpha) \Bigg)
  = \vec{a}_m
 \end{equation}
 
@@ -125,34 +125,34 @@ Przyspieszenie będzie zatem wyrażone wzorem:
 \begin{equation}
 \vec{a_m} = l
 \begin{bmatrix}
-\ddot{\alpha_x} cos(\alpha_x) - (\dot{\alpha_x})^2 sin(\alpha_x) \\
-\ddot{\alpha_y} cos(\alpha_y) - (\dot{\alpha_y})^2 sin(\alpha_y)
+\ddot{\alpha}_x cos(\alpha_x) - (\dot{\alpha}_x)^2 sin(\alpha_x) \\
+\ddot{\alpha}_y cos(\alpha_y) - (\dot{\alpha}_y)^2 sin(\alpha_y)
 \end{bmatrix}
 \end{equation}
 
 Po podstawieniu zależności (11) do równania (9) i przyrównaniu poszczególnych składowych równań (8) i (9) otrzymany zostaje następujący układ równań:
 
 \begin{equation}
-u_x + mg \cdot sin(\alpha_x) cos(\alpha) + m \cdot sin(\alpha_x) \sqrt{(\ddot{x_M})^2 + (\ddot{y_M})^2)} + b_x(\dot{x_M}) = (m_C + m_F) \ddot{x_M}
+u_x + mg \cdot sin(\alpha_x) cos(\alpha) + m \cdot sin(\alpha_x) sin(\alpha) \sqrt{(\ddot{x}_M)^2 + (\ddot{y}_M)^2)} + b_x(\dot{x}_M) = (m_C + m_F) \ddot{x}_M
 \end{equation}
 \begin{equation}
-u_y + mg \cdot sin(\alpha_y) cos(\alpha) + m \cdot sin(\alpha_y) \sqrt{(\ddot{x_M})^2 + (\ddot{y_M})^2)} + b_y(\dot{y_M}) = m_C \ddot{y_M}
+u_y + mg \cdot sin(\alpha_y) cos(\alpha) + m \cdot sin(\alpha_y) sin(\alpha) \sqrt{(\ddot{x}_M)^2 + (\ddot{y}_M)^2)} + b_y(\dot{y}_M) = m_C \ddot{y}_M
 \end{equation}
 \begin{equation}
--\ddot{x_M}-sin(\alpha_x) \Big( g \cdot cos(\alpha) + sin(\alpha)\sqrt{(\ddot{x_M})^2 + (\ddot{y_M})^2)} \Big) = l \big( \ddot{\alpha_x} cos(\alpha_x) - (\dot{\alpha_x})^2 sin(\alpha_x) \big)
+-\ddot{x_M}-sin(\alpha_x) \Big( g \cdot cos(\alpha) + sin(\alpha)\sqrt{(\ddot{x}_M)^2 + (\ddot{y}_M)^2)} \Big) = l \big( \ddot{\alpha}_x cos(\alpha_x) - (\dot{\alpha}_x)^2 sin(\alpha_x) \big)
 \end{equation}
 \begin{equation}
--\ddot{y_M}-sin(\alpha_y) \Big( g \cdot cos(\alpha) + sin(\alpha)\sqrt{(\ddot{x_M})^2 + (\ddot{y_M})^2)} \Big) = l \big( \ddot{\alpha_y} cos(\alpha_y) - (\dot{\alpha_y})^2 sin(\alpha_y) \big)
+-\ddot{y}_M-sin(\alpha_y) \Big( g \cdot cos(\alpha) + sin(\alpha)\sqrt{(\ddot{x}_M)^2 + (\ddot{y}_M)^2)} \Big) = l \big( \ddot{\alpha_y} cos(\alpha_y) - (\dot{\alpha}_y)^2 sin(\alpha_y) \big)
 \end{equation}
 
 \newpage
 \subsection*{Zastosowanie obliczeń numerycznych do wyznaczenia rozwiązań}
 Aby możliwe było zastosowanie obliczeń numerycznych do powyższego modelu, konieczne jest przekształcenie powyższych równań, do takich postaci, aby drugie pochodne zmiennych stanu ($\ddot{x_M}, \ddot{y_M}, \ddot{\alpha_x}, \ddot{\alpha_y}$) były wyrażone w zależności od pozostałych zmiennych. W przypadku przyspieszeń kątowych, przekształcenie to jest proste, gdyż sprowadza się do drobnych przekształceń równań 13 i 14:
 \begin{equation}
-\ddot{\alpha_x} = \frac{1}{l \cdot cos(\alpha_x)} \bigg(l (\dot{\alpha_x})^2 sin(\alpha_x) - \ddot{x_M}-sin(\alpha_x) \Big( g \cdot cos(\alpha) + sin(\alpha)\sqrt{(\ddot{x_M})^2 + (\ddot{y_M})^2)} \Big) \bigg)
+\ddot{\alpha_x} = \frac{1}{l \cdot cos(\alpha_x)} \bigg(l (\dot{\alpha}_x)^2 sin(\alpha_x) - \ddot{x}_M-sin(\alpha_x) \Big( g \cdot cos(\alpha) + sin(\alpha)\sqrt{(\ddot{x}_M)^2 + (\ddot{y}_M)^2)} \Big) \bigg)
 \end{equation}
 \begin{equation}
-\ddot{\alpha_y} = \frac{1}{l \cdot cos(\alpha_y)} \bigg(l (\dot{\alpha_y})^2 sin(\alpha_y) - \ddot{y_M}-sin(\alpha_y) \Big( g \cdot cos(\alpha) + sin(\alpha)\sqrt{(\ddot{x_M})^2 + (\ddot{y_M})^2)} \Big) \bigg)
+\ddot{\alpha_y} = \frac{1}{l \cdot cos(\alpha_y)} \bigg(l (\dot{\alpha}_y)^2 sin(\alpha_y) - \ddot{y}_M-sin(\alpha_y) \Big( g \cdot cos(\alpha) + sin(\alpha)\sqrt{(\ddot{x}_M)^2 + (\ddot{y}_M)^2)} \Big) \bigg)
 \end{equation}
 
 W przypadku przyspieszeń liniowych sprawa jest jednak bardziej skompilowana, gdyż konieczne jest rozwiązanie układu równań o postaci (ze względu na niewiadome $X$ i $Y$):
@@ -166,10 +166,12 @@ A_2+B_2\sqrt{X^2 + Y^2} = C_2Y
 gdzie:
 \begin{equation*}
 \begin{split}
+X &= \ddot{x}_M \\
+Y &= \ddot{y}_M \\
 A_1 &= u_x + mg \cdot sin(\alpha_x)cos(\alpha) + b_x(\dot{x}_M) \\
 A_2 &= u_y + mg \cdot sin(\alpha_y)cos(\alpha) + b_y(\dot{y}_M) \\
-B_1 &= m \cdot sin(\alpha_x) \\
-B_2 &= m \cdot sin(\alpha_y) \\
+B_1 &= m \cdot sin(\alpha_x) sin(\alpha) \\
+B_2 &= m \cdot sin(\alpha_y) sin(\alpha) \\
 C_1 &= m_C + m_F \\
 C_2 &= m_C \\
 \end{split}

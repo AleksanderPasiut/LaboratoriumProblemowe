@@ -1,10 +1,8 @@
-﻿  identifier.cpp
-identifier.cpp(5): warning C4101: 'model': unreferenced local variable
-  main.cpp
+﻿  model.cpp
   Generating code
-  9 of 624 functions ( 1.4%) were compiled, the rest were copied from previous compilation.
+  34 of 1488 functions ( 2.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    12 functions had inline decision re-evaluated but remain unchanged
+    24 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   CraneSim.vcxproj -> C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\CraneSim.exe
   CraneSim.vcxproj -> C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\CraneSim.pdb (Full PDB)

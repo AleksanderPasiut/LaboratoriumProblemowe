@@ -37,8 +37,8 @@ bool Model::ChkEq(double A1, double A2, double B1, double B2, double C1, double 
 void Model::ComputeLinearAccelerations(const Params& params)
 {
 	// obliczenie współczynników układu równań (18)
-	double B1 = params.m*sinAlphaX;
-	double B2 = params.m*sinAlphaY;
+	double B1 = params.m*sinAlphaX * sinAlpha;
+	double B2 = params.m*sinAlphaY * sinAlpha;
 
 	double A1 = ux + params.g*B1 * cosAlpha + bx(params);
 	double A2 = uy + params.g*B2 * cosAlpha + by(params);

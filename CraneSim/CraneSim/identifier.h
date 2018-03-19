@@ -3,9 +3,8 @@
 #include "include.h"
 #include "stage.h"
 #include "model.h"
-#include "progressBar.h"
 
-#include <thread>
+#include "progressBar.h"
 
 class Identifier
 {

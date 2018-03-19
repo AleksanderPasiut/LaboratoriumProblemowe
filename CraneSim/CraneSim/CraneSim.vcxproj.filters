@@ -86,6 +86,51 @@
     <ClInclude Include="solver.h">
       <Filter>Stage\Solver</Filter>
     </ClInclude>
+    <ClInclude Include="chart.h">
+      <Filter>Identifier\Chart</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\alglibinternal.h">
+      <Filter>Identifier\Alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\alglibmisc.h">
+      <Filter>Identifier\Alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\ap.h">
+      <Filter>Identifier\Alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\dataanalysis.h">
+      <Filter>Identifier\Alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\diffequations.h">
+      <Filter>Identifier\Alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\fasttransforms.h">
+      <Filter>Identifier\Alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\integration.h">
+      <Filter>Identifier\Alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\interpolation.h">
+      <Filter>Identifier\Alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\linalg.h">
+      <Filter>Identifier\Alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\optimization.h">
+      <Filter>Identifier\Alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\solvers.h">
+      <Filter>Identifier\Alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\specialfunctions.h">
+      <Filter>Identifier\Alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\statistics.h">
+      <Filter>Identifier\Alglib</Filter>
+    </ClInclude>
+    <ClInclude Include="alglib\src\stdafx.h">
+      <Filter>Identifier\Alglib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -115,6 +160,48 @@
     </ClCompile>
     <ClCompile Include="solver.cpp">
       <Filter>Stage\Solver</Filter>
+    </ClCompile>
+    <ClCompile Include="chart.cpp">
+      <Filter>Identifier\Chart</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\alglibinternal.cpp">
+      <Filter>Identifier\Alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\alglibmisc.cpp">
+      <Filter>Identifier\Alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\ap.cpp">
+      <Filter>Identifier\Alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\dataanalysis.cpp">
+      <Filter>Identifier\Alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\diffequations.cpp">
+      <Filter>Identifier\Alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\fasttransforms.cpp">
+      <Filter>Identifier\Alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\integration.cpp">
+      <Filter>Identifier\Alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\interpolation.cpp">
+      <Filter>Identifier\Alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\linalg.cpp">
+      <Filter>Identifier\Alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\optimization.cpp">
+      <Filter>Identifier\Alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\solvers.cpp">
+      <Filter>Identifier\Alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\specialfunctions.cpp">
+      <Filter>Identifier\Alglib</Filter>
+    </ClCompile>
+    <ClCompile Include="alglib\src\statistics.cpp">
+      <Filter>Identifier\Alglib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +243,12 @@
     </Filter>
     <Filter Include="Stage\Solver">
       <UniqueIdentifier>{a1b1960f-94b4-4420-8d0e-18375a88f53e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Identifier\Chart">
+      <UniqueIdentifier>{0580c3b8-62e2-4874-b8d7-18670c71f492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Identifier\Alglib">
+      <UniqueIdentifier>{e46805d8-6f5f-43e4-a61a-095a23368529}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

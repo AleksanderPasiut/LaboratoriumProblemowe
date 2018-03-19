@@ -1,3 +1,11 @@
-﻿  main.cpp
+﻿  stage.cpp
+  solver.cpp
+  main.cpp
+  identifier.cpp
+  chart.cpp
+  Generating Code...
+  Compiling...
+  threeDimWindow.cpp
+  Generating Code...
   CraneSim.vcxproj -> C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Debug\CraneSim.exe
   CraneSim.vcxproj -> C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Debug\CraneSim.pdb (Partial PDB)
