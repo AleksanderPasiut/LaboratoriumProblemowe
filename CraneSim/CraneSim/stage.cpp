@@ -12,7 +12,7 @@ void Stage::Action()
 Stage::Stage() : action(true), solver(model, params)
 {
 	params.Reset();
-	model.Reset();
+	model.Reset(params);
 }
 
 void Stage::Control(double ux, double uy, double u1, double u2)
@@ -57,7 +57,7 @@ void CALLBACK Stage::ActionTimer(HWND hwnd, UINT uMsg, UINT_PTR idParam, DWORD d
 	{
 		stage->StopAction();
 		MessageBoxA(0, e.what(), "Error!", MB_OK);
-		stage->model.Reset();
+		stage->model.Reset(stage->RetParams());
 		SendMessage(hwnd, SIMM_ERROR, 0, 0);
 		stage->StartAction();
 	}

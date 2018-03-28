@@ -114,8 +114,8 @@ public:
 			stage.RetParams().mF = numericMF.RetValue();
 			stage.RetParams().mC = numericMC.RetValue();
 			stage.RetParams().g = numericG.RetValue();
-			stage.RetParams().bX = numericBX.RetValue();
-			stage.RetParams().bY = numericBY.RetValue();
+			stage.RetParams().bX[0] = numericBX.RetValue();
+			stage.RetParams().bY[0] = numericBY.RetValue();
 			
 			stage.RetParams().dt = numericDt.RetValue();
 			stage.RetParams().solverType = static_cast<Params::SolverType>(solverSwitch.RetValue());
@@ -142,8 +142,8 @@ public:
 		numericMF.SetValue(stage.RetParams().mF);
 		numericMC.SetValue(stage.RetParams().mC);
 		numericG.SetValue(stage.RetParams().g);
-		numericBX.SetValue(stage.RetParams().bX);
-		numericBY.SetValue(stage.RetParams().bY);
+		numericBX.SetValue(stage.RetParams().bX[0]);
+		numericBY.SetValue(stage.RetParams().bY[0]);
 
 		numericDt.SetValue(stage.RetParams().dt);
 		solverSwitch.SetValue(static_cast<int>(stage.RetParams().solverType));
@@ -179,7 +179,7 @@ public:
 
 					if (reset.RetId() == LOWORD(wParam) && HIWORD(wParam) == BN_CLICKED)
 					{
-						stage.RetModel().Reset();
+						stage.RetModel().Reset(stage.RetParams());
 						sliderX.SetPos(0);
 						sliderY.SetPos(0);
 

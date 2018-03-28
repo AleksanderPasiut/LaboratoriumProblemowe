@@ -7,6 +7,7 @@
 #include <list>
 #include <iomanip>
 #include <thread>
+#include <fstream>
 
 #include <Windows.h>
 #include <WindowsX.h>

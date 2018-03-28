@@ -47,5 +47,5 @@ private:
 public:
 	void Step(const Params& params);
 
-	void Reset();
+	void Reset(const Params& params);
 };

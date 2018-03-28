@@ -15,11 +15,11 @@ void Model::Add(const Model& arg, double factor)
 
 double Model::bx(const Params& params)
 {
-	return -params.bX * vcX;
+	return -params.bX[0] * vcX * (1 + abs(params.bX[1]));
 }
 double Model::by(const Params& params)
 {
-	return -params.bY * vcY;
+	return -params.bY[0] * vcY * (1 + abs(params.bY[1]));
 }
 void Model::ComputeCosSinAlpha(const Params& params)
 {
@@ -37,12 +37,12 @@ bool Model::ChkEq(double A1, double A2, double B1, double B2, double C1, double 
 void Model::ComputeLinearAccelerations(const Params& params)
 {
 	// obliczenie współczynników układu równań (18)
+	double A1 = ux + params.g * params.m * sinAlphaX * cosAlpha + bx(params);
+	double A2 = uy + params.g * params.m * sinAlphaY * cosAlpha + by(params);
+
 	double B1 = params.m*sinAlphaX * sinAlpha;
 	double B2 = params.m*sinAlphaY * sinAlpha;
 
-	double A1 = ux + params.g*B1 * cosAlpha + bx(params);
-	double A2 = uy + params.g*B2 * cosAlpha + by(params);
-	
 	double C1 = params.mC + params.mF;
 	double C2 = params.mC;
 
@@ -60,7 +60,6 @@ void Model::ComputeLinearAccelerations(const Params& params)
 
 	if (AA != 0)
 	{
-		
 		double Delta1 = sqrt(BB1*BB1 - 4*AA*CC1);
 		double Delta2 = sqrt(BB2*BB2 - 4*AA*CC2);
 
@@ -73,25 +72,25 @@ void Model::ComputeLinearAccelerations(const Params& params)
 		acX = (-BB1 - Delta1) / (2*AA);
 		acY = (-BB2 - Delta2) / (2*AA);
 
-		if (ChkEq(A1, A2, B1, B2, C1, C2, 0.001))
+		if (ChkEq(A1, A2, B1, B2, C1, C2, 0.1))
 			return;
 
 		acX = (-BB1 + Delta1) / (2*AA);
 		acY = (-BB2 - Delta2) / (2*AA);
 
-		if (ChkEq(A1, A2, B1, B2, C1, C2, 0.001))
+		if (ChkEq(A1, A2, B1, B2, C1, C2, 0.1))
 			return;
 
 		acX = (-BB1 - Delta1) / (2*AA);
 		acY = (-BB2 + Delta2) / (2*AA);
 
-		if (ChkEq(A1, A2, B1, B2, C1, C2, 0.001))
+		if (ChkEq(A1, A2, B1, B2, C1, C2, 0.1))
 			return;
 
 		acX = (-BB1 + Delta1) / (2*AA);
 		acY = (-BB2 + Delta2) / (2*AA);
 
-		if (!ChkEq(A1, A2, B1, B2, C1, C2, 0.001))
+		if (!ChkEq(A1, A2, B1, B2, C1, C2, 0.1))
 			throw std::logic_error("No solution fits the soe solutions. :(");
 	}
 	else
@@ -118,20 +117,20 @@ void Model::Step(const Params& params)
 	ComputeAngleAccelerations(params);
 }
 
-void Model::Reset()
+void Model::Reset(const Params& params)
 {
 	ux = 0;
 	uy = 0;
 
-	carX = 0;
-	carY = 0;
-	alphaX = 0;
-	alphaY = 0;
+	carX = params.x0;
+	carY = params.y0;
+	alphaX = params.ax0;
+	alphaY = params.ay0;
 
-	vcX = 0;
-	vcY = 0;
-	omegaX = 0;
-	omegaY = 0;
+	vcX = params.vx0;
+	vcY = params.vy0;
+	omegaX = params.wx0;
+	omegaY = params.wy0;
 
 	acX = 0;
 	acY = 0;

@@ -1,8 +1,27 @@
-﻿  model.cpp
+﻿  identifier.cpp
+identifier.cpp(275): warning C4101: 'e': unreferenced local variable
+identifier.cpp(311): warning C4101: 'e': unreferenced local variable
   Generating code
-  34 of 1488 functions ( 2.3%) were compiled, the rest were copied from previous compilation.
+  37 of 1764 functions ( 2.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    24 functions had inline decision re-evaluated but remain unchanged
+    21 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
+alglibinternal.obj : warning LNK4099: PDB 'vc140.pdb' was not found with 'alglibinternal.obj' or at 'C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\vc140.pdb'; linking object as if no debug info
+alglibmisc.obj : warning LNK4099: PDB 'vc140.pdb' was not found with 'alglibmisc.obj' or at 'C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\vc140.pdb'; linking object as if no debug info
+ap.obj : warning LNK4099: PDB 'vc140.pdb' was not found with 'ap.obj' or at 'C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\vc140.pdb'; linking object as if no debug info
+dataanalysis.obj : warning LNK4099: PDB 'vc140.pdb' was not found with 'dataanalysis.obj' or at 'C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\vc140.pdb'; linking object as if no debug info
+diffequations.obj : warning LNK4099: PDB 'vc140.pdb' was not found with 'diffequations.obj' or at 'C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\vc140.pdb'; linking object as if no debug info
+fasttransforms.obj : warning LNK4099: PDB 'vc140.pdb' was not found with 'fasttransforms.obj' or at 'C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\vc140.pdb'; linking object as if no debug info
+integration.obj : warning LNK4099: PDB 'vc140.pdb' was not found with 'integration.obj' or at 'C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\vc140.pdb'; linking object as if no debug info
+interpolation.obj : warning LNK4099: PDB 'vc140.pdb' was not found with 'interpolation.obj' or at 'C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\vc140.pdb'; linking object as if no debug info
+linalg.obj : warning LNK4099: PDB 'vc140.pdb' was not found with 'linalg.obj' or at 'C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\vc140.pdb'; linking object as if no debug info
+optimization.obj : warning LNK4099: PDB 'vc140.pdb' was not found with 'optimization.obj' or at 'C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\vc140.pdb'; linking object as if no debug info
+solvers.obj : warning LNK4099: PDB 'vc140.pdb' was not found with 'solvers.obj' or at 'C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\vc140.pdb'; linking object as if no debug info
+specialfunctions.obj : warning LNK4099: PDB 'vc140.pdb' was not found with 'specialfunctions.obj' or at 'C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\vc140.pdb'; linking object as if no debug info
+statistics.obj : warning LNK4099: PDB 'vc140.pdb' was not found with 'statistics.obj' or at 'C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\vc140.pdb'; linking object as if no debug info
+graphics3d.obj : warning LNK4099: PDB 'vc140.pdb' was not found with 'graphics3d.obj' or at 'C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\vc140.pdb'; linking object as if no debug info
+materials.obj : warning LNK4099: PDB 'vc140.pdb' was not found with 'materials.obj' or at 'C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\vc140.pdb'; linking object as if no debug info
+scene.obj : warning LNK4099: PDB 'vc140.pdb' was not found with 'scene.obj' or at 'C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\vc140.pdb'; linking object as if no debug info
+shapes.obj : warning LNK4099: PDB 'vc140.pdb' was not found with 'shapes.obj' or at 'C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\vc140.pdb'; linking object as if no debug info
   CraneSim.vcxproj -> C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\CraneSim.exe
   CraneSim.vcxproj -> C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\CraneSim.pdb (Full PDB)
