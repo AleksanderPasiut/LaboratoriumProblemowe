@@ -1,10 +1,15 @@
 clear all
 close all
 
+trzy_palce = 0.5*0.8354;
+
 % there and back again
-% utx = [0.8 2 3];
-% ux = [0.2 -0.4 0.2];
+% utx = [0.8 4 7 10];
+% ux = [0.2 -0.4 0.2 0];
 % 
+% uty = [0.8 4 7 10];
+% uy = [0 0.2 -0.4 0.2];
+
 % uty = [0.8 2 3];
 % uy = [0.2 -0.4 0.2];
 
@@ -12,19 +17,22 @@ close all
 % ux = [0 0 0];
 
 % there and stop
-utx = [0.8 2 0];
-ux = [0.2 0 0];
+utx = [1 3 10];
+ux = [0.5 -0.5 0];
 
-% uty = [0.8 2 0];
-% uy = [0.2 0 0];
+uty = [1 3 10];
+uy = [0.5 -0.5 0];
 
-uty = [1 2 3];
-uy = [0 0 0];
+% uty = [1 2 3];
+% uy = [0 0 0];
+
+% utx = [1 2 3];
+% ux = [0 0 0];
 
 
 
 BasicTestFunction( 'GoHomeXYZ', 0.5, 'Go Home !!!' );
-pause(30)
+pause(10)
 set_param('Crane3D_DevDriv', 'SimulationCommand', 'start')
 
 temp = exist('positions_and_angles');
@@ -37,7 +45,7 @@ plot(time,positions_and_angles)
 legend('x','y','x angle','y angle')
 
 formatSpec='%f %f %f %f %f %f %f %f \r\n';
-size = 3000;
+size = 8000;
 
 data_out(1,:) = time';
 data_out(2:3,:) = control';
