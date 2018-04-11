@@ -15,11 +15,11 @@ void Model::Add(const Model& arg, double factor)
 
 double Model::bx(const Params& params)
 {
-	return -params.bX[0] * vcX * (1 + abs(params.bX[1]));
+	return -params.bX[0] * abs(params.bX[0]) * vcX;// * (1 + abs(params.bX[1]));
 }
 double Model::by(const Params& params)
 {
-	return -params.bY[0] * vcY * (1 + abs(params.bY[1]));
+	return -params.bY[0] * abs(params.bY[0]) * vcY;// * (1 + abs(params.bY[1]));
 }
 void Model::ComputeCosSinAlpha(const Params& params)
 {
@@ -104,10 +104,10 @@ void Model::ComputeLinearAccelerations(const Params& params)
 }
 void Model::ComputeAngleAccelerations(const Params& params)
 {
-	double xySqr = sqrt(acX * acX + acY * acY);
+	double xySqr = sqrt(acX * acX * params.auxX * params.auxX + acY * acY * params.auxY * params.auxY);
 	double gcsSqr = params.g * cosAlpha + sinAlpha * xySqr;
-	epsilonX = (params.l * omegaX * omegaX * sinAlphaX - acX - sinAlphaX * gcsSqr) / (params.l * cos(alphaX));
-	epsilonY = (params.l * omegaY * omegaY * sinAlphaY - acY - sinAlphaY * gcsSqr) / (params.l * cos(alphaY));
+	epsilonX = (params.l * omegaX * omegaX * sinAlphaX - acX * params.auxX - sinAlphaX * gcsSqr) / (params.l * cos(alphaX));
+	epsilonY = (params.l * omegaY * omegaY * sinAlphaY - acY * params.auxY - sinAlphaY * gcsSqr) / (params.l * cos(alphaY));
 }
 void Model::Step(const Params& params)
 {

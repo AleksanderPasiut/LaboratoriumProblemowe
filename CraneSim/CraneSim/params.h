@@ -18,6 +18,10 @@ struct Params
 	std::vector<double> bX;
 	std::vector<double> bY;
 
+	// wspó³czynniki dodatkowe
+	double auxX;
+	double auxY;
+
 	// warunki pocz¹tkowe
 	double x0;
 	double y0;
@@ -52,6 +56,9 @@ struct Params
 		dt = 0.0001;
 		solverType = RUNGE_KUTTA_4;
 
+		auxX = 1.0;
+		auxY = 1.0;
+
 		x0 = 0;
 		y0 = 0;
 
@@ -67,38 +74,44 @@ struct Params
 
 	void FromRealArray(const alglib::real_1d_array& x)
 	{
-		l = x[0];
-		m = x[1];
-		mF = x[2];
-		mC = x[3];
-		bX = { x[4], x[5] };
-		bY = { x[6], x[7] };
-		x0 = x[8];
-		y0 = x[9];
-		vx0 = x[10];
-		vy0 = x[11];
-		ax0 = x[12];
-		ay0 = x[13];
-		wx0 = x[14];
-		wy0 = x[15];
+		int i = 0;
+		l = x[i++];
+		m = x[i++];
+		mF = x[i++];
+		mC = x[i++];
+		bX = { x[i++], x[i++] };
+		bY = { x[i++], x[i++] };
+		auxX = x[i++];
+		auxY = x[i++];
+		x0 = x[i++];
+		y0 = x[i++];
+		vx0 = x[i++];
+		vy0 = x[i++];
+		ax0 = x[i++];
+		ay0 = x[i++];
+		wx0 = x[i++];
+		wy0 = x[i++];
 	}
 	void ToRealArray(alglib::real_1d_array& x)
 	{
-		x[0] = l;
-		x[1] = m;
-		x[2] = mF;
-		x[3] = mC;
-		x[4] = bX[0];
-		x[5] = bX[1];
-		x[6] = bY[0];
-		x[7] = bY[1];
-		x[8] = x0;
-		x[9] = y0;
-		x[10] = vx0;
-		x[11] = vy0;
-		x[12] = ax0;
-		x[13] = ay0;
-		x[14] = wx0;
-		x[15] = wy0;
+		int i = 0;
+		x[i++] = l;
+		x[i++] = m;
+		x[i++] = mF;
+		x[i++] = mC;
+		x[i++] = bX[0];
+		x[i++] = bX[1];
+		x[i++] = bY[0];
+		x[i++] = bY[1];
+		x[i++] = auxX;
+		x[i++] = auxY;
+		x[i++] = x0;
+		x[i++] = y0;
+		x[i++] = vx0;
+		x[i++] = vy0;
+		x[i++] = ax0;
+		x[i++] = ay0;
+		x[i++] = wx0;
+		x[i++] = wy0;
 	}
 };

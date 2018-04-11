@@ -123,7 +123,7 @@ void Plot4(const Vec& t, const VecN& u, const VecN& x)
 		xc.Export("output\\" + name[i]);
 	}
 }
-void Plot4C(const Vec& t, const VecN& u, const VecN& x, const VecN& s)
+void Plot4C(const Vec& t, const VecN& u, const VecN& x, const VecN& s, const string& suffix)
 {
 	std::string nameU[] = { "ux", "uy" };
 
@@ -131,7 +131,7 @@ void Plot4C(const Vec& t, const VecN& u, const VecN& x, const VecN& s)
 	{
 		xChart xc(nameU[i], "t", nameU[i]);
 		xc.AddLine(t.data(), u[i].data(), t.size());
-		xc.Export("output\\" + nameU[i]);
+		xc.Export("output\\" + suffix + "_" + nameU[i]);
 	}
 
 	std::string name[] = { "x", "y", "ax", "ay" };
@@ -140,7 +140,7 @@ void Plot4C(const Vec& t, const VecN& u, const VecN& x, const VecN& s)
 		xChart xc(name[i], "t", name[i]);
 		xc.AddLine(t.data(), x[i].data(), t.size());
 		xc.AddLine(t.data(), s[i].data(), t.size());
-		xc.Export("output\\" + name[i]);
+		xc.Export("output\\" + suffix + "_" + name[i]);
 	}
 }
 
@@ -154,7 +154,7 @@ void GetDataFromFile(Vec& t, VecN& u, VecN& x, const std::string& name)
 	u.resize(2);
 	x.resize(4);
 
-	const size_t N = 10000;
+	const size_t N = 8000;
 	t.reserve(N);
 
 	for (size_t i = 0; i < 2; ++i)
@@ -163,7 +163,7 @@ void GetDataFromFile(Vec& t, VecN& u, VecN& x, const std::string& name)
 	for (size_t i = 0; i < 4; ++i)
 		x[i].reserve(N);
 
-	for (;;)
+	for (size_t i = 0; i < 8000; ++i)
 	{
 		double v;
 		file >> v;
@@ -204,36 +204,6 @@ void GetDataFromFile(Vec& t, VecN& u, VecN& x, const std::string& name)
 
 	file.close();
 }
-
-#ifdef U
-void Identifier::Core()
-{
-	Params params;
-	params.Reset();
-	params.dt = 0.001;
-	params.m = 2000;
-	params.g = 10;
-	params.mC = 250;
-	params.mF = 250;
-	params.l = 10;
-	params.bX = 0;
-
-	Vec t;
-	TimeVector(t, params.dt, 0, 10);
-
-	VecN u(2);
-	u[0].resize(t.size());
-	u[1].resize(t.size());
-	//Step(u[0], 1.0, 1.0, params.dt);
-	//MultiStep(u[0], {0, 1, 5, 7, 50, 80}, {-1000, 1000, -1000, 1000, -1000, 1000}, params.dt);
-	MultiStep(u[0], {0, 5}, {1000, -1000}, params.dt);
-	
-	VecN x;
-	Simulate(x, u, params);
-
-	Plot(t, u, x);
-}
-#endif
 
 // optimization 
 using namespace alglib;
@@ -295,70 +265,37 @@ void Phi(const real_1d_array& x, double& func, void* ptr)
 		Simulate(s, data.u, params);
 
 		size_t N = data.x[0].size();
-		for (size_t j = 0; j < 3; ++j)
+		for (size_t j = 0; j < 4; ++j)
 			for (size_t i = 0; i < N; ++i)
 			{
-				if (abs(data.x[j][i]) > 0.000001)
-				{
-					double absE = s[j][i] - data.x[j][i];
-					//double relE = absE / data.x[j][i];
-					//phi[i + j * N] = relE;
-					func += absE * absE;
-				}
-				//else phi[i + j * N] = 0;
+				double absE = s[j][i] - data.x[j][i];
+				func += absE * absE;// * ((j < 2) ? 1.0 : 2.0);
 			}
 	}
 	catch (std::exception& e)
 	{
-		func = 100;
+		func = 1000;
 		//MessageBoxA(0, e.what(), 0, 0);
 	}
 }
 
-void Optimize(Params& params, const Vec& t, const VecN& u, const VecN& x)
+void Optimize(Params& params, const Vec& t, const VecN& u, const VecN& x, fstream& results)
 {
 	OuterData data = { t, u, x };
 
 	real_1d_array params0;
-	params0.setlength(16);
+	params0.setlength(18);
 	params.ToRealArray(params0);
-
-	#ifdef U
-
-	real_1d_array p;
-	p.setlength(16);
-	p[2] = 0;
-	p[4] = 0;
-	p[5] = 0;
-	p[6] = 0;
-	p[8] = 0;
-	p[9] = 0;
-	p[10] = 0;
-	p[12] = 0;
-	p[13] = -0.005;
-	p[14] = 0;
-
-	double ref = 0;
-
-	/*for (p[0] = 0.1; p[0] < 0.4; p[0] += 0.1)
-		for (p[1] = 0.5; p[1] < 1; p[1] += 0.2)
-			for (p[3] = 1.0; p[3] < 1.5; p[3] += 0.3)
-				for (p[7] = 1.0; p[7] < 2.1; p[7] += 0.5)
-					for (p[9])*/
-	#endif
-	
+		
 	minbcstate state;
-	//real_1d_array bndl = "[0.2, 0.0, 0.1, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.01, 0.0, 0.0, 0.0]";
-	//real_1d_array bndu = "[9.0, 9.5, 9.5, 9.5, 9.5, 9.5, 9.5, 9.5, 0.0, 0.0, 0.0, 0.0, 0.01, 0.0, 0.0, 0.0]";
-
 	//real_1d_array bndl = "[0.01, 0.0000001, 0.0000001, 0.0000001, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]";
-	real_1d_array bndl = "[0.01, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]";
-	real_1d_array bndu = "[9.0, 1.0, 1.0, 1.0, 1.0, 9.5, 9.5, 9.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]";
+	real_1d_array bndl = "[0.001, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]";
+	real_1d_array bndu = "[9.0, 10.0, 10.0, 10.0, 20, 0.0, 20, 0.0, 1000.0, 1000.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]";
 
-	double epsg = 0.00000001;
+	double epsg = 0;//0.00000000001;
 	double epsf = 0;
 	double epsx = 0;
-	ae_int_t maxits = 1000;
+	ae_int_t maxits = 200;
 	double diffstep = 1.0e-6;
 	
 	minbccreatef(params0, diffstep, state);
@@ -371,30 +308,33 @@ void Optimize(Params& params, const Vec& t, const VecN& u, const VecN& x)
 
 	minbcreport rep;
 	minbcresults(state, params0, rep);
-
-	#ifdef U
-
-    minlmstate state;
-	minlmcreatev(params0.length(), x.size() * x[0].size(), params0, 0.000000001, state);
 	
-	real_1d_array bottom = "[0, 0, 0, 0, 0, 0, 0, 0, -INF, -INF, -INF, -INF, -INF, -INF, -INF, -INF]";
-	real_1d_array top = "[+INF, +INF, +INF, +INF, +INF, +INF, +INF, +INF, +INF, +INF, +INF, +INF, +INF, +INF, +INF, +INF]";
-	minlmsetbc(state, bottom, top);
-
-	double epsx = 0.0000000000000001;
-	ae_int_t maxits = 0;
-    minlmsetcond(state, epsx, maxits);
-
-    minlmoptimize(state, Phi, 0, &data);
-
-	minlmreport rep;
-    minlmresults(state, params0, rep);
-
-	#endif
-
 	params.FromRealArray(params0);
 
-	string resp;
+	string delim = "; ";
+	results << value << delim;
+	results << rep.iterationscount << delim;
+	results << rep.terminationtype << delim;
+	results << params.l << delim;
+	results << params.m << delim;
+	results << params.mF << delim;
+	results << params.mC << delim;
+	results << params.bX[0] << delim;
+	results << params.bX[1] << delim;
+	results << params.bY[0] << delim;
+	results << params.bY[1] << delim;
+	results << params.auxX << delim;
+	results << params.auxY << delim;
+	results << params.x0 << delim;
+	results << params.y0 << delim;
+	results << params.vx0 << delim;
+	results << params.vy0 << delim;
+	results << params.ax0 << delim;
+	results << params.ay0 << delim;
+	results << params.wx0 << delim;
+	results << params.wy0 << delim << endl;
+
+	/*string resp;
 	resp += "value: " + to_string(value) + "\n";
 	resp += "itcount: " + to_string(rep.iterationscount) + "\n";
 	resp += "term. type: " + to_string(rep.terminationtype) + "\n";
@@ -404,6 +344,8 @@ void Optimize(Params& params, const Vec& t, const VecN& u, const VecN& x)
 	resp += "mC: " + to_string(params.mC) + "\n";
 	resp += "bX: " + to_string(params.bX[0]) + " " + to_string(params.bX[1]) + "\n";
 	resp += "bY: " + to_string(params.bY[0]) + " " + to_string(params.bY[1]) + "\n";
+	resp += "auxX: " + to_string(params.auxX) + "\n";
+	resp += "auxY: " + to_string(params.auxY) + "\n";
 	resp += "x: " + to_string(params.x0) + "\n";
 	resp += "y: " + to_string(params.y0) + "\n";
 	resp += "vx: " + to_string(params.vx0) + "\n";
@@ -412,32 +354,35 @@ void Optimize(Params& params, const Vec& t, const VecN& u, const VecN& x)
 	resp += "ay: " + to_string(params.ay0) + "\n";
 	resp += "wx: " + to_string(params.wx0) + "\n";
 	resp += "wy: " + to_string(params.wy0) + "\n";
-	MessageBoxA(0, resp.c_str(), "resp", MB_OK);
+	MessageBoxA(0, resp.c_str(), "resp", MB_OK);*/
 }
 
 // ---------------------------------------
-void SingleFileAnalysis(const std::string& dir, const std::string& name)
+void SingleFileAnalysis(const std::string& dir, const std::string& name, fstream& results)
 {
 	Vec t;
 	VecN u, x;
-	GetDataFromFile(t, u, x, dir + name);
+	GetDataFromFile(t, u, x, dir + name + ".txt");
 
 	Params params;
 	params.Reset();
-	params.m = 0.3;
-	params.mF = 0.7;
-	params.mC = 0.2;
-	params.l = 0.45;
-	params.bX = {2, 1.1};
-	params.bY = {2, 0.5};
+	params.m = 0.008;
+	params.mF = 0.32;
+	params.mC = 0.03;
+	params.l = 0.63;
+	params.bX = {4.9, 0};
+	params.bY = {3.7, 0};
+	params.auxX = 4;
+	params.auxY = 5.9;
 	params.dt = t[1] - t[0];
-	params.x0 = x[0][0];
+	/*params.x0 = x[0][0];
 	params.y0 = x[1][0];
 	params.vy0 = 0.05;
 	params.ax0 = x[2][0];
-	params.ay0 = x[3][0];
+	params.ay0 = x[3][0];*/
 
-	Optimize(params, t, u, x);
+	results << name << "; ";
+	Optimize(params, t, u, x, results);
 
 	VecN s;
 	try
@@ -448,12 +393,17 @@ void SingleFileAnalysis(const std::string& dir, const std::string& name)
 	{
 		MessageBoxA(0, e.what(), 0, 0);
 	}
-	Plot4C(t, u, x, s);
+	Plot4C(t, u, x, s, name);
 }
 void Identifier::Core()
 {
-	std::string dir = "identification\\";
-	std::string names[] = { "out.txt", "outx.txt", "outy.txt" };
+	fstream results("output\\results.csv", fstream::out);
 
-	SingleFileAnalysis(dir, "out.txt");
+	std::string dir = "identification\\";
+	std::string names[] = { "1", "1a", "2", "2a", "3", "3a", "4", "4_special", "4a", "5", "5a", "6", "6a" };//"out", "out2x", "out2xy" };
+
+	for (size_t i = 0; i < sizeof(names); ++i)
+		SingleFileAnalysis(dir, names[i], results);
+	
+	results.close();
 }
