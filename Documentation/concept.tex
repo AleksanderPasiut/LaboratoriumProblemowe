@@ -161,6 +161,7 @@ W przypadku przyspieszeń liniowych sprawa jest jednak bardziej skompilowana, gd
 A_1+B_1\sqrt{X^2 + Y^2} = C_1X \\ 
 A_2+B_2\sqrt{X^2 + Y^2} = C_2Y
 \end{cases}, \quad C_1 > 0, \quad C_2 > 0
+\label{eq:Primary}
 \end{equation}
 
 gdzie:
@@ -177,7 +178,69 @@ C_2 &= m_C \\
 \end{split}
 \end{equation*}
 
-\subsection*{Rozwiązanie układu równań (17)}
+\subsection*{Rozwiązanie układu równań \eqref{eq:Primary}}
+Rozwiązanie postaci $(X,Y) = (0,0)$ możliwe jest tylko w sytuacji, gdy $A_1 = A_2 = 0$. Wszystkie pozostałe rozwiązania układu równań wyrazić można w postaci:
+\begin{equation}
+X = R \cdot cos(\gamma), \quad Y = R \cdot sin(\gamma), \quad R > 0
+\end{equation}
+
+Po podstawieniu:
+\begin{equation}
+A_1 + B_1 R = C_1 R \cdot cos(\gamma), \quad
+A_2 + B_2 R = C_2 R \cdot sin(\gamma)
+\end{equation}
+
+Po przekształceniu:
+\begin{equation}
+\frac{1}{C_1} \Big( \frac{A_1}{R} + B_1 \Big) = cos(\gamma), \quad
+\frac{1}{C_2} \Big( \frac{A_2}{R} + B_2 \Big) = sin(\gamma)
+\end{equation}
+
+Po obustronnym podniesieniu do kwadratu obu równań i zastosowaniu zależności jedynki trygonometrycznej:
+\begin{equation}
+\frac{1}{C_1^2} \Big( \frac{A_1}{R} + B_1 \Big)^2 + 
+\frac{1}{C_2^2} \Big( \frac{A_2}{R} + B_2 \Big)^2 = 1
+\end{equation}
+
+Po uporządkowaniu zmiennych uzyskane zostaje równanie kwadratowe:
+\begin{equation}
+\Bigg( \frac{B_1^2}{C_1^2} + \frac{B_2^2}{C_2^2} - 1 \Bigg) R^2 +
+2 \Bigg( \frac{A_1B_1}{C_1^2} + \frac{A_2B_2}{C_2^2} \Bigg) R +
+\Bigg( \frac{A_1^2}{C_1^2} + \frac{A_2^2}{C_2^2} \Bigg) = 0
+\end{equation}
+
+\begin{equation}
+\Delta = 4 \Bigg( \frac{A_1B_1}{C_1^2} + \frac{A_2B_2}{C_2^2} \Bigg)^2 -
+4 \Bigg( \frac{B_1^2}{C_1^2} + \frac{B_2^2}{C_2^2} - 1 \Bigg)
+\Bigg( \frac{A_1^2}{C_1^2} + \frac{A_2^2}{C_2^2} \Bigg)
+\end{equation}
+
+\begin{equation}
+\Delta = 4 \Bigg(2
+\frac{A_1 B_1 A_2 B_2}{C_1^2 C_2^2} +
+\frac{A_1^2}{C_1^2} +
+\frac{A_2^2}{C_2^2} -
+\frac{A_1^2 B_2^2 + A_2^2 B_1^2}{C_1^2 C_2^2} 
+\Bigg)
+\end{equation}
+
+\begin{equation}
+\Delta = \frac{4}{C_1^2C_2^2}
+\Big( 2A_1B_1A_2B_2 + A_1^2C_2^2 + A_2^2C_1^2 - A_1^2B_2^2 - A_2^2B_1^2 \Big)
+\end{equation}
+
+\begin{equation}
+\Delta = \frac{4}{C_1^2C_2^2}
+\Big( A_1^2C_2^2 + A_2^2C_1^2 - ( A_1B_2 - A_2B_1)^2 \Big)
+\end{equation}
+
+\begin{equation}
+R_0 = \frac{-A_1B_1C_2^2 -A_2B_2C_1^2 \pm
+\sqrt{A_1^2C_2^2 + A_2^2C_1^2 - ( A_1B_2 - A_2B_1)^2}}
+{B_1^2C_2^2 + B_2^2C_1^2 - C_1^2C_2^2}
+\end{equation}
+
+\subsection*{Rozwiązanie układu równań \eqref{eq:Primary} (rozwiązanie odrzucone)}
 Po prostych przekształceniach można zauważyć afiniczną zależność między niewiadomymi:
 \begin{equation}
 \begin{cases}
@@ -187,9 +250,10 @@ B_1 B_2 \sqrt{X^2 + Y^2} = C_2 B_1 Y - A_2 B_1
 \end{equation}
 \begin{equation}
 C_1 B_2 X - A_1 B_2 = C_2 B_1 Y - A_2 B_1
+\label{eq:Affine}
 \end{equation}
 
-Z drugiej strony, po podniesieniu na przykład pierwszego z równań (18) do kwadratu, możliwe jest zastosowanie tej zależności (20), aby sprowadzić zadanie do rozwiązania równania kwadratowego jednej niewiadomej:
+Z drugiej strony, po podniesieniu na przykład pierwszego z równań \eqref{eq:Primary} do kwadratu, możliwe jest zastosowanie tej zależności \eqref{eq:Affine}, aby sprowadzić zadanie do rozwiązania równania kwadratowego jednej niewiadomej:
 \begin{equation}
 C_2^2 B_1^2 Y^2 = C_2^2 (C_1 X - A_1)^2 - C_2^2 B_1^2 X^2
 \end{equation}

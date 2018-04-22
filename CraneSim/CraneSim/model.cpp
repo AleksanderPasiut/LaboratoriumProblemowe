@@ -15,11 +15,11 @@ void Model::Add(const Model& arg, double factor)
 
 double Model::bx(const Params& params)
 {
-	return -params.bX[0] * abs(params.bX[0]) * vcX;// * (1 + abs(params.bX[1]));
+	return -params.bX[0] * vcX;// * abs(vcX);//atan(20 * vcX / params.bX[0]);
 }
 double Model::by(const Params& params)
 {
-	return -params.bY[0] * abs(params.bY[0]) * vcY;// * (1 + abs(params.bY[1]));
+	return -params.bY[0] * vcY;// * abs(vcY);//atan(20 * vcY / params.bY[0]);
 }
 void Model::ComputeCosSinAlpha(const Params& params)
 {
@@ -37,13 +37,13 @@ bool Model::ChkEq(double A1, double A2, double B1, double B2, double C1, double 
 void Model::ComputeLinearAccelerations(const Params& params)
 {
 	// obliczenie współczynników układu równań (18)
-	double A1 = ux + params.g * params.m * sinAlphaX * cosAlpha + bx(params);
-	double A2 = uy + params.g * params.m * sinAlphaY * cosAlpha + by(params);
+	double A1 = ux * params.auxX + params.g * params.m * sinAlphaX * cosAlpha + bx(params);
+	double A2 = uy * params.auxY + params.g * params.m * sinAlphaY * cosAlpha + by(params);
 
 	double B1 = params.m*sinAlphaX * sinAlpha;
 	double B2 = params.m*sinAlphaY * sinAlpha;
 
-	double C1 = params.mC + params.mF;
+	double C1 = params.mF;// + params.mC;
 	double C2 = params.mC;
 
 	// obliczenie współczynników równań (23) i symetrycznego do (24)
@@ -104,10 +104,12 @@ void Model::ComputeLinearAccelerations(const Params& params)
 }
 void Model::ComputeAngleAccelerations(const Params& params)
 {
-	double xySqr = sqrt(acX * acX * params.auxX * params.auxX + acY * acY * params.auxY * params.auxY);
+	double& acXscale = acX;
+	double& acYscale = acY;
+	double xySqr = sqrt(acXscale * acXscale + acYscale * acYscale);
 	double gcsSqr = params.g * cosAlpha + sinAlpha * xySqr;
-	epsilonX = (params.l * omegaX * omegaX * sinAlphaX - acX * params.auxX - sinAlphaX * gcsSqr) / (params.l * cos(alphaX));
-	epsilonY = (params.l * omegaY * omegaY * sinAlphaY - acY * params.auxY - sinAlphaY * gcsSqr) / (params.l * cos(alphaY));
+	epsilonX = (params.l * omegaX * omegaX * sinAlphaX - acXscale - sinAlphaX * gcsSqr) / (params.l * cos(alphaX));
+	epsilonY = (params.l * omegaY * omegaY * sinAlphaY - acYscale - sinAlphaY * gcsSqr) / (params.l * cos(alphaY));
 }
 void Model::Step(const Params& params)
 {

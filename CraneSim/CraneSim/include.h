@@ -8,6 +8,7 @@
 #include <iomanip>
 #include <thread>
 #include <fstream>
+#include <random>
 
 #include <Windows.h>
 #include <WindowsX.h>
