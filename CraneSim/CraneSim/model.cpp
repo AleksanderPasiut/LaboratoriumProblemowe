@@ -46,61 +46,22 @@ void Model::ComputeLinearAccelerations(const Params& params)
 	double C1 = params.mF;// + params.mC;
 	double C2 = params.mC;
 
-	// obliczenie współczynników równań (23) i symetrycznego do (24)
-	double A2B1mA1B2 = A2*B1 - A1*B2;
-	double A1B2mA2B1 = -A2B1mA1B2;
-
-	double AA = C1*C1*C2*C2 - C2*C2*B1*B1 - C1*C1*B2*B2;
-	double BB1 = 2*(C1*B2*A1B2mA2B1 - A1*C1*C2*C2);
-	double BB2 = 2*(C2*B1*A2B1mA1B2 - A2*C2*C1*C1);
-
-	double A2B1mA1B2sqr = A2B1mA1B2 * A2B1mA1B2;
-	double CC1 = A1*A1*C2*C2 - A2B1mA1B2sqr;
-	double CC2 = A2*A2*C1*C1 - A2B1mA1B2sqr;
-
+	// obliczenie współczynników równania (23)
+	double AA = B1*B1*C2*C2 + B2*B2*C1*C1 - C1*C1*C2*C2;
+	double R0;
 	if (AA != 0)
 	{
-		double Delta1 = sqrt(BB1*BB1 - 4*AA*CC1);
-		double Delta2 = sqrt(BB2*BB2 - 4*AA*CC2);
+		double Delta = A1*A1*C2*C2 + A2*A2*C1*C1 - (A1*B2 - A2*B1) * (A1*B2 - A2*B1);
 
-		if (std::isnan(Delta1))
-			Delta1 = 0;
-
-		if (std::isnan(Delta2))
-			Delta2 = 0;
-
-		acX = (-BB1 - Delta1) / (2*AA);
-		acY = (-BB2 - Delta2) / (2*AA);
-
-		if (ChkEq(A1, A2, B1, B2, C1, C2, 0.1))
-			return;
-
-		acX = (-BB1 + Delta1) / (2*AA);
-		acY = (-BB2 - Delta2) / (2*AA);
-
-		if (ChkEq(A1, A2, B1, B2, C1, C2, 0.1))
-			return;
-
-		acX = (-BB1 - Delta1) / (2*AA);
-		acY = (-BB2 + Delta2) / (2*AA);
-
-		if (ChkEq(A1, A2, B1, B2, C1, C2, 0.1))
-			return;
-
-		acX = (-BB1 + Delta1) / (2*AA);
-		acY = (-BB2 + Delta2) / (2*AA);
-
-		if (!ChkEq(A1, A2, B1, B2, C1, C2, 0.1))
-			throw std::logic_error("No solution fits the soe solutions. :(");
+		R0 = (- A1*B1*C2*C2 - A2*B2*C1*C1 - sqrt(Delta)) / AA;
 	}
 	else
 	{
-		if (BB1 == 0 || BB2 == 0)
-			throw std::logic_error("Zero division error!");
-
-		acX = -CC1 / BB1;
-		acY = -CC2 / BB2;
+		R0 = -0.5 * (A1*A1*C2*C2 + A2*A2*C1*C1) / (A1*B1*C2*C2 + A2*B2*C1*C1);
 	}
+	
+	acX = (A1 + B1*R0) / C1;
+	acY = (A2 + B2*R0) / C2;
 }
 void Model::ComputeAngleAccelerations(const Params& params)
 {

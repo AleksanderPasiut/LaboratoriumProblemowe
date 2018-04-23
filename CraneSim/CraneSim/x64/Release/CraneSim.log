@@ -1,10 +1,8 @@
-﻿  identifier.cpp
-identifier.cpp(243): warning C4101: 'e': unreferenced local variable
-identifier.cpp(280): warning C4101: 'e': unreferenced local variable
+﻿  model.cpp
   Generating code
-  11 of 1636 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
+  10 of 1632 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    4 functions had inline decision re-evaluated but remain unchanged
+    8 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
 alglibinternal.obj : warning LNK4099: PDB 'vc140.pdb' was not found with 'alglibinternal.obj' or at 'C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\vc140.pdb'; linking object as if no debug info
 alglibmisc.obj : warning LNK4099: PDB 'vc140.pdb' was not found with 'alglibmisc.obj' or at 'C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\vc140.pdb'; linking object as if no debug info

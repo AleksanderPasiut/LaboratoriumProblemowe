@@ -147,7 +147,7 @@ u_y + mg \cdot sin(\alpha_y) cos(\alpha) + m \cdot sin(\alpha_y) sin(\alpha) \sq
 
 \newpage
 \subsection*{Zastosowanie obliczeń numerycznych do wyznaczenia rozwiązań}
-Aby możliwe było zastosowanie obliczeń numerycznych do powyższego modelu, konieczne jest przekształcenie powyższych równań, do takich postaci, aby drugie pochodne zmiennych stanu ($\ddot{x_M}, \ddot{y_M}, \ddot{\alpha_x}, \ddot{\alpha_y}$) były wyrażone w zależności od pozostałych zmiennych. W przypadku przyspieszeń kątowych, przekształcenie to jest proste, gdyż sprowadza się do drobnych przekształceń równań 13 i 14:
+Aby możliwe było zastosowanie obliczeń numerycznych do powyższego modelu, konieczne jest przekształcenie powyższych równań, do takich postaci, aby drugie pochodne zmiennych stanu ($\ddot{x_M}, \ddot{y_M}, \ddot{\alpha_x}, \ddot{\alpha_y}$) były wyrażone w zależności od pozostałych zmiennych. W przypadku przyspieszeń kątowych, przekształcenie to jest proste, gdyż sprowadza się do drobnych przekształceń równań (14) i (15):
 \begin{equation}
 \ddot{\alpha_x} = \frac{1}{l \cdot cos(\alpha_x)} \bigg(l (\dot{\alpha}_x)^2 sin(\alpha_x) - \ddot{x}_M-sin(\alpha_x) \Big( g \cdot cos(\alpha) + sin(\alpha)\sqrt{(\ddot{x}_M)^2 + (\ddot{y}_M)^2)} \Big) \bigg)
 \end{equation}
@@ -178,10 +178,12 @@ C_2 &= m_C \\
 \end{split}
 \end{equation*}
 
-\subsection*{Rozwiązanie układu równań \eqref{eq:Primary}}
-Rozwiązanie postaci $(X,Y) = (0,0)$ możliwe jest tylko w sytuacji, gdy $A_1 = A_2 = 0$. Wszystkie pozostałe rozwiązania układu równań wyrazić można w postaci:
+\newpage
+\subsubsection*{Rozwiązanie układu równań \eqref{eq:Primary}}
+Rozwiązania układu równań wyrazić można w postaci:
 \begin{equation}
-X = R \cdot cos(\gamma), \quad Y = R \cdot sin(\gamma), \quad R > 0
+X = R \cdot cos(\gamma), \quad Y = R \cdot sin(\gamma), \quad R \geqslant 0
+\label{eq:VarChng}
 \end{equation}
 
 Po podstawieniu:
@@ -194,6 +196,7 @@ Po przekształceniu:
 \begin{equation}
 \frac{1}{C_1} \Big( \frac{A_1}{R} + B_1 \Big) = cos(\gamma), \quad
 \frac{1}{C_2} \Big( \frac{A_2}{R} + B_2 \Big) = sin(\gamma)
+\label{eg:TrigForm}
 \end{equation}
 
 Po obustronnym podniesieniu do kwadratu obu równań i zastosowaniu zależności jedynki trygonometrycznej:
@@ -240,6 +243,270 @@ R_0 = \frac{-A_1B_1C_2^2 -A_2B_2C_1^2 \pm
 {B_1^2C_2^2 + B_2^2C_1^2 - C_1^2C_2^2}
 \end{equation}
 
+Po podstawieniu zależności \eqref{eg:TrigForm} do \eqref{eq:VarChng} rozwiązania równania można wyrazić w postaci:
+\begin{equation}
+X = \frac{A_1 + B_1 R_0}{C_1}, \quad
+Y = \frac{A_2 + B_2 R_0}{C_2}
+\end{equation}
+ 
+\newpage
+\subsubsection*{Równania stanu}
+Ostatnim krokiem przekształcenia równań do postaci możliwej do rozwiązania metodami numerycznymi jest przekształcenie ich w równania stanu, o postaci:
+\begin{equation}
+\dot{\vec{x}} = F(\vec{x}, \vec{u})
+\end{equation}
+
+Wektor sterowań, wektor stanu i pochodną wektora stanu wyrazić można jako:
+\begin{equation}
+\vec{u} = \begin{bmatrix} u_1 \\ u_2 \end{bmatrix} = \begin{bmatrix} u_x \\ u_y \end{bmatrix}, \quad
+\vec{x} = 
+\begin{bmatrix}
+x_1 \\ x_2 \\ x_3 \\ x_4 \\ x_5 \\ x_6 \\ x_7 \\ x_8 \\
+\end{bmatrix} =
+\begin{bmatrix}
+x_M \\ y_M \\ \alpha_x \\ \alpha_y \\ \dot{x}_M \\ \dot{y}_M \\ \dot{\alpha}_x \\ \dot{\alpha}_y
+\end{bmatrix}, \quad
+\dot{\vec{x}} =
+\begin{bmatrix}
+\dot{x}_1 \\ \dot{x}_2 \\ \dot{x}_3 \\ \dot{x}_4 \\ \dot{x}_5 \\ \dot{x}_6 \\ \dot{x}_7 \\ \dot{x}_8 \\
+\end{bmatrix} =
+\begin{bmatrix}
+\dot{x}_M \\ \dot{y}_M \\ \dot{\alpha}_x \\ \dot{\alpha}_y \\
+\ddot{x}_M \\ \ddot{y}_M \\ \ddot{\alpha}_x \\ \ddot{\alpha}_y
+\end{bmatrix}
+\end{equation}
+
+Równania stanu przyjmują wtedy następującą postać:
+\begin{equation}
+\dot{x}_1 = x_5, \quad
+\dot{x}_2 = x_6, \quad
+\dot{x}_3 = x_7, \quad
+\dot{x}_4 = x_8, \quad
+\dot{x}_5 = X, \quad
+\dot{x}_6 = Y \\
+\end{equation}
+\begin{equation}
+\begin{split}
+\dot{x}_7 &= x_7^2 tg(x_3) - \frac{X}{l \cdot cos(x_3)} - \frac{tg(x_3)}{l} \Big( g \cdot T + S\sqrt{X^2 + Y^2} \Big) \\
+\dot{x}_8 &= x_8^2 tg(x_4) - \frac{Y}{l \cdot cos(x_4)} - \frac{tg(x_4)}{l} \Big( g \cdot T + S\sqrt{X^2 + Y^2} \Big)
+\end{split}
+\end{equation}
+
+Gdzie:
+\begin{equation}
+\begin{split}
+X &= \frac{A_1 + B_1 R_0}{C_1} \\
+Y &= \frac{A_2 + B_2 R_0}{C_2} \\
+R_0 &= \frac{-A_1B_1C_2^2 -A_2B_2C_1^2 - 
+\sqrt{A_1^2C_2^2 + A_2^2C_1^2 - ( A_1B_2 - A_2B_1)^2}}
+{B_1^2C_2^2 + B_2^2C_1^2 - C_1^2C_2^2} \\
+A_1 &= u_1 + mg \cdot sin(x_3)T + b_x(x_5) \\
+A_2 &= u_2 + mg \cdot sin(x_4)T + b_y(x_6) \\
+B_1 &= m \cdot sin(x_3) S \\
+B_2 &= m \cdot sin(x_4) S \\
+C_1 &= m_C + m_F \\
+C_2 &= m_C \\
+S &= \sqrt{ sin^2(x_3) + sin^2(x_4) } \\
+T &= \sqrt{1 - sin^2(x_3) - sin^2(x_4) } \\
+\end{split}
+\end{equation}
+
+\newpage
+\subsection*{Równania sprzężone}
+\iffalse
+\begin{equation}
+H = \psi^T F(\vec{x},\vec{u}) = \sum_i \psi_i \dot{x}_i
+\end{equation}
+\begin{equation}
+\dot{\psi} = - \frac{\partial H}{\partial \vec{x}}
+\end{equation}
+\begin{equation}
+\begin{split}
+\dot{\psi}_1 &= \sum_i \psi_i \frac{ \partial \dot{x}_i }{ \partial x_1 } \\
+&... \\
+\dot{\psi}_j &= \sum_i \psi_i \frac{ \partial \dot{x}_i }{ \partial x_j }
+\end{split}
+\end{equation}
+\fi
+
+W celu wyznaczenia równań sprzężonych konieczne jest obliczenie wszystkich 64 pochodnych pochodnych stanów względem stanów. Szybka analiza ujawnia jednak, że większość z tych funkcji będzie zerami, a tylko niektóre będą mieć skompilowaną postać:
+
+\begin{center}
+\begin{tabular}{c|c|c|c|c|c|c|c|c}
+$\partial \dot{x}_i / \partial x_j$ &
+$\dot{x}_1$ & $\dot{x}_2$ & $\dot{x}_3$ & $\dot{x}_4$ &
+$\dot{x}_5$ & $\dot{x}_6$ & $\dot{x}_7$ & $\dot{x}_8$ \\ \hline
+$x_1$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ \hline
+$x_2$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ \\ \hline
+$x_3$ & $0$ & $0$ & $0$ & $0$ & \# & \# & \# & \# \\ \hline
+$x_4$ & $0$ & $0$ & $0$ & $0$ & \# & \# & \# & \# \\ \hline
+$x_5$ & $1$ & $0$ & $0$ & $0$ & \# & \# & \# & \# \\ \hline
+$x_6$ & $0$ & $1$ & $0$ & $0$ & \# & \# & \# & \# \\ \hline
+$x_7$ & $0$ & $0$ & $1$ & $0$ & $0$ & $0$ & \# & $0$ \\ \hline
+$x_8$ & $0$ & $0$ & $0$ & $1$ & $0$ & $0$ & $0$ & \# \\
+\end{tabular}
+\end{center}
+
+Pochodne w tabeli oznaczone znacznikami \# mają skomplikowane postacie i zostały obliczone poniżej:
+\begin{equation}
+\begin{split}
+\frac{ \partial \dot{x}_5 }{ \partial x_j } &= \frac{ \partial X }{ \partial x_j }, \quad j \in \{ 3, 4, 5, 6 \} \\
+\frac{ \partial \dot{x}_6 }{ \partial x_j } &= \frac{ \partial Y }{ \partial x_j }, \quad j \in \{ 3, 4, 5, 6 \} \\
+\frac{ \partial \dot{x}_7 }{ \partial x_j } &= 
+\frac{-1}{l \cdot cos(x_3)} \frac{\partial X}{\partial x_j} - \frac{tg(x_3)}{l} \bigg(
+g \cdot \frac{\partial T}{\partial x_j} +
+\frac{\partial S}{\partial x_j}\sqrt{X^2 + Y^2} +
+\Big( \frac{\partial X}{\partial x_j}X + \frac{\partial Y}{\partial x_j}Y \Big) \frac{S}{\sqrt{X^2 + Y^2}} \bigg), \quad j \in \{ 4, 5, 6 \} \\
+\frac{ \partial \dot{x}_8 }{ \partial x_j } &=
+\frac{-1}{l \cdot cos(x_4)} \frac{\partial Y}{\partial x_j} - \frac{tg(x_4)}{l} \bigg(
+g \cdot \frac{\partial T}{\partial x_j} +
+\frac{\partial S}{\partial x_j}\sqrt{X^2 + Y^2} +
+\Big( \frac{\partial X}{\partial x_j}X + \frac{\partial Y}{\partial x_j}Y \Big) \frac{S}{\sqrt{X^2 + Y^2}} \bigg), \quad j \in \{ 3, 5, 6 \} \\
+\frac{ \partial \dot{x}_7 }{ \partial x_3 } &= \frac{l \cdot x_7^2 - \frac{\partial X}{\partial x_3} cos(x_3) -
+X \cdot sin(x_3) - g \cdot T - S \sqrt{X^2 + Y^2}}{l \cdot cos^2 (x_3)} \\
+&- \frac{tg(x_3)}{l} \bigg(g \cdot \frac{\partial T}{\partial x_3} + \frac{\partial S}{\partial x_3}\sqrt{X^2 + Y^2} +
+\Big( \frac{\partial X}{\partial x_3}X + \frac{\partial Y}{\partial x_3}Y \Big) \frac{S}{\sqrt{X^2 + Y^2}} \bigg)  \\
+\frac{ \partial \dot{x}_8 }{ \partial x_4 } &= \frac{l \cdot x_8^2 - \frac{\partial Y}{\partial x_4} cos(x_4) -
+X \cdot sin(x_4) - g \cdot T - S \sqrt{X^2 + Y^2}}{l \cdot cos^2 (x_4)} \\
+&- \frac{tg(x_4)}{l} \bigg(g \cdot \frac{\partial T}{\partial x_4} + \frac{\partial S}{\partial x_4}\sqrt{X^2 + Y^2} +
+\Big( \frac{\partial X}{\partial x_4}X + \frac{\partial Y}{\partial x_4}Y \Big) \frac{S}{\sqrt{X^2 + Y^2}} \bigg) \\
+\frac{ \partial \dot{x}_7 }{ \partial x_7 } &= 2x_7 tg(x_3) \\
+\frac{ \partial \dot{x}_8 }{ \partial x_8 } &= 2x_8 tg(x_4) \\
+\end{split}
+\end{equation}
+
+
+\newpage
+
+% X,Y derivatives
+\begin{equation}
+\boldsymbol{\frac{\partial X}{\partial x_j}} = \frac{1}{C_1} \bigg(
+{\frac{\partial A_1}{\partial x_j} + \frac{\partial B_1}{\partial x_j} R_0 + B_1 \frac{\partial R_0}{\partial x_j}}
+\bigg), \quad
+\boldsymbol{\frac{\partial Y}{\partial x_j}} = \frac{1}{C_2} \bigg(
+{\frac{\partial A_2}{\partial x_j} + \frac{\partial B_2}{\partial x_j} R_0 + B_2 \frac{\partial R_0}{\partial x_j}}
+\bigg)
+\end{equation}
+
+% A1 derivatives
+\begin{equation}
+\boldsymbol{\frac{\partial A_1}{\partial x_3}} = mg \cdot \big( cos(x_3)T + sin(x_3) \frac{\partial T}{\partial x_3} \big), \quad
+\boldsymbol{\frac{\partial A_1}{\partial x_4}} = mg \cdot sin(x_3) \frac{\partial T}{\partial x_4}
+\end{equation}
+
+% A2 derivatives
+\begin{equation}
+\boldsymbol{\frac{\partial A_2}{\partial x_3}} = mg \cdot sin(x_4) \frac{\partial T}{\partial x_3}, \quad
+\boldsymbol{\frac{\partial A_2}{\partial x_4}} = mg \cdot \big( cos(x_4)T + sin(x_4) \frac{\partial T}{\partial x_4} \big)
+\end{equation}
+
+% A1, A2 by x5, x6 derivatives
+\begin{equation}
+\boldsymbol{\frac{\partial A_1}{\partial x_5}} = \frac{\partial b_x}{\partial x_5}, \quad
+\boldsymbol{\frac{\partial A_1}{\partial x_6}} = 0, \quad
+\boldsymbol{\frac{\partial A_2}{\partial x_5}} = 0, \quad
+\boldsymbol{\frac{\partial A_2}{\partial x_6}} = \frac{\partial b_y}{\partial x_6}
+\end{equation}
+
+% nonzero B1 derivatives
+\begin{equation}
+\boldsymbol{\frac{\partial B_1}{\partial x_3}} = m \Big(cos(x_3)S + sin(x_3) \frac{\partial S}{\partial x_3} \Big), \quad
+\boldsymbol{\frac{\partial B_1}{\partial x_4}} = m \cdot sin(x_3) \frac{\partial S}{\partial x_4}
+\end{equation}
+
+% nonzero B2 derivatives
+\begin{equation}
+\boldsymbol{\frac{\partial B_2}{\partial x_3}} = m \cdot sin(x_4) \frac{\partial S}{\partial x_3}, \quad
+\boldsymbol{\frac{\partial B_2}{\partial x_4}} = m \Big(cos(x_4)S + sin(x_4) \frac{\partial S}{\partial x_4} \Big)
+\end{equation}
+
+% zero B1, B2 derivatives
+\begin{equation}
+\boldsymbol{\frac{\partial B_1}{\partial x_5}} = 0, \quad
+\boldsymbol{\frac{\partial B_1}{\partial x_6}} = 0, \quad
+\boldsymbol{\frac{\partial B_2}{\partial x_5}} = 0, \quad
+\boldsymbol{\frac{\partial B_2}{\partial x_6}} = 0
+\end{equation}
+
+% S derivatives
+\begin{equation}
+\boldsymbol{\frac{\partial S}{\partial x_3}} = \frac{sin(x_3) cos(x_3)}{\sqrt{ sin^2(x_3) + sin^2(x_4)} }, \quad
+\boldsymbol{\frac{\partial S}{\partial x_4}} = \frac{sin(x_4) cos(x_4)}{\sqrt{ sin^2(x_3) + sin^2(x_4)} }
+\end{equation}
+
+% T derivatives
+\begin{equation}
+\boldsymbol{\frac{\partial T}{\partial x_3}} = \frac{-sin(x_3) cos(x_3)}{\sqrt{1 - sin^2(x_3) - sin^2(x_4)} }, \quad
+\boldsymbol{\frac{\partial T}{\partial x_4}} = \frac{-sin(x_4) cos(x_4)}{\sqrt{1 - sin^2(x_3) - sin^2(x_4)} }
+\end{equation}
+
+\newpage
+\subsubsection*{Wyznaczenie pochodnej $\partial R_0 / \partial x$}
+
+Celem jest obliczenie pochodnej po $x$ wyrażenia:
+\begin{equation}
+R_0 = \frac{-A_1B_1C_2^2 -A_2B_2C_1^2 - 
+\sqrt{A_1^2C_2^2 + A_2^2C_1^2 - ( A_1B_2 - A_2B_1)^2}}
+{B_1^2C_2^2 + B_2^2C_1^2 - C_1^2C_2^2}
+\end{equation}
+
+Gdzie:
+\begin{equation}
+A_1 = A_1(x), \quad
+A_2 = A_2(x), \quad
+B_1 = B_1(x), \quad
+B_2 = B_2(x), \quad
+C_1 = const, \quad
+C_2 = const
+\end{equation}
+
+Poprzez zastąpienie poszczególnych części tego skompilowanego wyrażenia funkcjami pomocniczymi, możliwe jest rozbicie problemu na kilka prostszych podproblemów:
+\begin{equation}
+R_0 = \frac{N_1-\sqrt{N_2}}{D}
+\end{equation}
+
+Gdzie:
+\begin{equation}
+\begin{split}
+N_1 &= -A_1 B_1 C_2^2 - A_2 B_2 C_1^2 \\
+N_2 &= A_1^2C_2^2 + A_2^2C_1^2 - ( A_1B_2 - A_2B_1)^2 \\
+D &= B_1^2 C_2^2 + B_2^2 C_1^2 - C_1^2 C_2^2
+\end{split}
+\end{equation}
+
+Wtedy:
+\begin{equation}
+\frac{\partial R_0}{\partial x} = \frac{1}{D^2}
+\Bigg(
+\bigg(
+\frac{\partial N_1}{\partial x} -
+\frac{1}{2} \frac{\partial N_2}{\partial x}
+\frac{1}{\sqrt{N_2}}
+\bigg) - 
+\Big( N_1-\sqrt{N_2} \Big) \frac{\partial D}{\partial x}
+\Bigg)
+\end{equation}
+
+Gdzie:
+\begin{equation}
+\begin{split}
+\frac{\partial N_1}{\partial x} &=
+-C_2^2 \bigg(\frac{\partial A_1}{\partial x} B_1 + A_1 \frac{\partial B_1}{\partial x} \bigg)
+-C_1^2 \bigg(\frac{\partial A_2}{\partial x} B_2 + A_2 \frac{\partial B_2}{\partial x} \bigg) \\
+\frac{\partial N_2}{\partial x} &= 
+2\frac{\partial A_1}{\partial x} A_1 C_2^2 + 2\frac{\partial A_2}{\partial x} A_2 C_1^2 - 
+2 ( A_1B_2 - A_2B_1)
+\bigg(
+\frac{\partial A_1}{\partial x} B_2 + A_1 \frac{\partial B_2}{\partial x} -
+\frac{\partial A_2}{\partial x} B_1 - A_2 \frac{\partial B_1}{\partial x}
+\bigg) \\
+\frac{\partial D}{\partial x} &=
+2\frac{\partial B_1}{\partial x} B_1 C_2^2 + 2\frac{\partial B_2}{\partial x} B_2 C_1^2 \\
+%\frac{\partial}{\partial}
+\end{split}
+\end{equation}
+
+\newpage
 \subsection*{Rozwiązanie układu równań \eqref{eq:Primary} (rozwiązanie odrzucone)}
 Po prostych przekształceniach można zauważyć afiniczną zależność między niewiadomymi:
 \begin{equation}
@@ -267,7 +534,6 @@ A_1^2 C_2^2 - \big(A_2B_1 - A_1B_2 \big)^2
  = 0
 \end{equation}
 
-\newpage
 Aby wyznaczyć wartość $Y$ konieczne jest rozwiązanie analogicznego równania kwadratowego (wykorzystanie w tym celu zależności (20) jest problematyczne z uwagi na sytuację, gdy $B_1 = 0$):
 \begin{equation}
 \big(C_1^2 C_2^2 - C_2^2 B_1^2 - C_1^2 B_2^2 \big) Y^2 + 

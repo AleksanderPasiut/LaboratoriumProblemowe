@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (MiKTeX 2.9.6400 64-bit) (preloaded format=xelatex 2017.12.29)  21 APR 2018 20:59
+This is XeTeX, Version 3.14159265-2.6-0.99998 (MiKTeX 2.9.6400 64-bit) (preloaded format=xelatex 2017.12.29)  23 APR 2018 09:12
 entering extended mode
 **./concept.tex
 (concept.tex
@@ -697,14 +697,19 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: pic2mod.png Graphic file (type bmp)
 <pic2mod.png>
  [2] [3] [4]
-[5] [6] (concept.aux) ) 
-Here is how much of TeX's memory you used:
- 12584 strings out of 427823
- 267304 string characters out of 3152321
- 360069 words of memory out of 24000000
- 16489 multiletter control sequences out of 15000+200000
- 533236 words of font info for 50 fonts, out of 3000000 for 9000
- 1328 hyphenation exceptions out of 8191
- 35i,16n,65p,10370b,236s stack positions out of 5000i,500n,10000p,200000b,50000s
+[5] [6]
+Overfull \hbox (2.47624pt too wide) detected at line 376
+[]
+ []
 
-Output written on concept.pdf (6 pages).
+[7] [8] [9] [10] (concept.aux) ) 
+Here is how much of TeX's memory you used:
+ 12608 strings out of 427823
+ 267670 string characters out of 3152321
+ 361088 words of memory out of 24000000
+ 16502 multiletter control sequences out of 15000+200000
+ 536008 words of font info for 61 fonts, out of 3000000 for 9000
+ 1328 hyphenation exceptions out of 8191
+ 35i,19n,65p,10370b,236s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on concept.pdf (10 pages).
