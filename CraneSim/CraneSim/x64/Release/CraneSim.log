@@ -1,8 +1,8 @@
 ﻿  model.cpp
   Generating code
-  10 of 1632 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+  15 of 1632 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    8 functions had inline decision re-evaluated but remain unchanged
+    9 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
 alglibinternal.obj : warning LNK4099: PDB 'vc140.pdb' was not found with 'alglibinternal.obj' or at 'C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\vc140.pdb'; linking object as if no debug info
 alglibmisc.obj : warning LNK4099: PDB 'vc140.pdb' was not found with 'alglibmisc.obj' or at 'C:\Users\Avert Second\Documents\studia\IV rok - semestr 8\Laboratorium problemowe\CraneSim\x64\Release\vc140.pdb'; linking object as if no debug info

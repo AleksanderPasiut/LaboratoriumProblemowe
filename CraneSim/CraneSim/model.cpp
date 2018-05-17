@@ -53,7 +53,7 @@ void Model::ComputeLinearAccelerations(const Params& params)
 	{
 		double Delta = A1*A1*C2*C2 + A2*A2*C1*C1 - (A1*B2 - A2*B1) * (A1*B2 - A2*B1);
 
-		R0 = (- A1*B1*C2*C2 - A2*B2*C1*C1 - sqrt(Delta)) / AA;
+		R0 = (- A1*B1*C2*C2 - A2*B2*C1*C1 - C1*C2*sqrt(Delta)) / AA;
 	}
 	else
 	{

@@ -1,0 +1,9 @@
+xm = l*cos(by)*sin(bx)
+
+xm' = l*(bx'cos(bx)*cos(by) - by'sin(by)sin(bx))
+
+xm'' = l*( bx'' cos(bx)*cos(by) - (bx')^2 sin(bx)*cos(by) - bx' by' cos(bx)*sin(by)
+	   by'' sin(by)*sin(bx) - (by')^2 cos(by)*sin(bx) - bx' by' cos(bx)*sin(by)  )
+
+xm'' = l*( bx'' cos(bx)*cos(by) - ( (bx')^2 + (by')^2 ) sin(bx)*cos(by) - 2 * bx' by' cos(bx)*sin(by) + by'' sin(by)*sin(bx) )
+
